@@ -1,4 +1,4 @@
-import {MainPage} from './Pages/MainPage.tsx';
+import {MainPage} from '../Pages/MainPage.tsx';
 import React from 'react';
 
 interface AppProps {

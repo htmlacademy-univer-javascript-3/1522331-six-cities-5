@@ -1,6 +1,6 @@
 import React from 'react';
-import {PlaceCard} from '../PlaceCard.tsx';
-import {RoomType} from '../../DataTypes/RoomType.ts';
+import {PlaceCard} from '../components/PlaceCard.tsx';
+import {RoomType} from '../DataTypes/RoomType.ts';
 
 interface MainPageProps {
   placeCount: number;
