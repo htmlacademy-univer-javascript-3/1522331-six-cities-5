@@ -1,5 +1,5 @@
 import React from 'react';
-import {RoomType} from '../DataTypes/RoomType.ts';
+import { RoomType } from '../DataTypes/RoomType.ts';
 
 interface PlaceCardProps {
   price: number;
@@ -10,24 +10,30 @@ interface PlaceCardProps {
   isInBookmarks?: boolean;
 }
 
-
 export function PlaceCard({
   price,
   type,
   image,
   description,
   isPremium,
-  isInBookmarks
+  isInBookmarks,
 }: PlaceCardProps): React.JSX.Element {
   return (
     <article className="cities__card place-card">
-      {isPremium &&
+      {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
-        </div>}
+        </div>
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={`../../markup/img/${image}`} width="260" height="200" alt="Place image"/>
+          <img
+            className="place-card__image"
+            src={`../../markup/img/${image}`}
+            width="260"
+            height="200"
+            alt="Place image"
+          />
         </a>
       </div>
       <div className="place-card__info">
@@ -36,16 +42,21 @@ export function PlaceCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isInBookmarks ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button
+            className={`place-card__bookmark-button ${isInBookmarks ? 'place-card__bookmark-button--active' : ''} button`}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">{isInBookmarks ? 'In bookmarks' : 'To bookmarks'}</span>
+            <span className="visually-hidden">
+              {isInBookmarks ? 'In bookmarks' : 'To bookmarks'}
+            </span>
           </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '100%'}}></span>
+            <span style={{ width: '100%' }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
