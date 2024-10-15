@@ -6,7 +6,7 @@ import { FavoritesPage } from '../Pages/FavoritesPage.tsx';
 import { OfferPage } from '../Pages/OfferPage.tsx';
 import { NotFoundPage } from '../Pages/NotFoundPage/NotFoundPage.tsx';
 import { AuthorizationWrapper } from './AuthorizationWrapper.tsx';
-import { AppRoutes } from '../DataTypes/AppRoutes.tsx';
+import { AppRoutes } from '../DataTypes/AppRoutes.ts';
 import { HelmetProvider } from 'react-helmet-async';
 
 interface AppProps {
@@ -26,7 +26,7 @@ export function App({ placeCount }: AppProps): React.JSX.Element {
           <Route
             path={AppRoutes.Favorites}
             element={
-              <AuthorizationWrapper>
+              <AuthorizationWrapper isAuthorized={false}>
                 <FavoritesPage />
               </AuthorizationWrapper>
             }
