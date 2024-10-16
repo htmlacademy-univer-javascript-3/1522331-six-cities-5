@@ -6,27 +6,28 @@ import { FavoritesPage } from '../Pages/FavoritesPage.tsx';
 import { OfferPage } from '../Pages/OfferPage.tsx';
 import { NotFoundPage } from '../Pages/NotFoundPage/NotFoundPage.tsx';
 import { AuthorizationWrapper } from './AuthorizationWrapper.tsx';
-import { AppRoutes } from '../DataTypes/AppRoutes.ts';
+import { AppRoutes } from '../dataTypes/enums/AppRoutes.ts';
 import { HelmetProvider } from 'react-helmet-async';
+import { Offer } from '../dataTypes/Offer.ts';
 
 interface AppProps {
-  placeCount: number;
+  offers: Offer[];
 }
 
-export function App({ placeCount }: AppProps): React.JSX.Element {
+export function App({ offers }: AppProps): React.JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoutes.MainPage}
-            element={<MainPage placeCount={placeCount} />}
+            element={<MainPage offers={offers} />}
           />
           <Route path={AppRoutes.Login} element={<LoginPage />} />
           <Route
             path={AppRoutes.Favorites}
             element={
-              <AuthorizationWrapper isAuthorized={false}>
+              <AuthorizationWrapper isAuthorized={true}>
                 <FavoritesPage />
               </AuthorizationWrapper>
             }

@@ -1,12 +1,12 @@
 import React from 'react';
-import { PlaceCard } from '../components/PlaceCard.tsx';
-import { RoomType } from '../DataTypes/RoomType.ts';
+import { Offer } from '../dataTypes/Offer.ts';
+import { OffersList } from '../components/OffersList.tsx';
 
 interface MainPageProps {
-  placeCount: number;
+  offers: Offer[];
 }
 
-export function MainPage({ placeCount }: MainPageProps): React.JSX.Element {
+export function MainPage({ offers }: MainPageProps): React.JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -91,7 +91,7 @@ export function MainPage({ placeCount }: MainPageProps): React.JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {placeCount} places to stay in Amsterdam
+                {offers.length} places to stay in Amsterdam
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -119,42 +119,7 @@ export function MainPage({ placeCount }: MainPageProps): React.JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <PlaceCard
-                  price={120}
-                  type={RoomType.Apartment}
-                  image="apartment-01.jpg"
-                  description="Beautiful &amp; luxurious apartment at great location"
-                  isPremium
-                />
-                <PlaceCard
-                  price={80}
-                  type={RoomType.Room}
-                  image="room.jpg"
-                  description="Wood and stone place"
-                  isInBookmarks
-                />
-                <PlaceCard
-                  price={132}
-                  type={RoomType.Apartment}
-                  image="apartment-02.jpg"
-                  description="Canal View Prinsengracht"
-                />
-                <PlaceCard
-                  price={180}
-                  type={RoomType.Apartment}
-                  image="apartment-03.jpg"
-                  description="Nice, cozy, warm big bed apartment"
-                  isPremium
-                />
-                <PlaceCard
-                  price={80}
-                  type={RoomType.Room}
-                  image="room.jpg"
-                  description="Wood and stone place"
-                  isInBookmarks
-                />
-              </div>
+              <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
