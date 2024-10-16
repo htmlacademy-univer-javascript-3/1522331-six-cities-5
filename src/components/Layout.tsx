@@ -1,15 +1,22 @@
+import { AppRoutes } from '../dataTypes/enums/AppRoutes.ts';
+import { Link } from 'react-router-dom';
+
 interface LayoutProps {
   children: React.JSX.Element;
+  showFooter?: boolean;
 }
 
-export function Layout({ children }: LayoutProps): React.JSX.Element {
+export function Layout({
+  children,
+  showFooter,
+}: LayoutProps): React.JSX.Element {
   return (
     <div className="page">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link className="header__logo-link" to={AppRoutes.MainPage}>
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -17,21 +24,21 @@ export function Layout({ children }: LayoutProps): React.JSX.Element {
                   width="81"
                   height="41"
                 />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
+                  <Link
                     className="header__nav-link header__nav-link--profile"
-                    href="#"
+                    to={AppRoutes.Favorites}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
                       Oliver.conner@gmail.com
                     </span>
                     <span className="header__favorite-count">3</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
                   <a className="header__nav-link" href="#">
@@ -44,17 +51,19 @@ export function Layout({ children }: LayoutProps): React.JSX.Element {
         </div>
       </header>
       {children}
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width="64"
-            height="33"
-          />
-        </a>
-      </footer>
+      {showFooter && (
+        <footer className="footer container">
+          <a className="footer__logo-link" href="main.html">
+            <img
+              className="footer__logo"
+              src="img/logo.svg"
+              alt="6 cities logo"
+              width="64"
+              height="33"
+            />
+          </a>
+        </footer>
+      )}
     </div>
   );
 }

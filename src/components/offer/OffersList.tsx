@@ -1,4 +1,4 @@
-import { Offer } from '../dataTypes/Offer.ts';
+import { Offer } from '../../dataTypes/Offer.ts';
 import { OfferCard } from './OfferCard.tsx';
 import React, { useState } from 'react';
 
@@ -10,7 +10,6 @@ export function OffersList({ offers }: OffersListProps): React.JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState('');
   const handleMouseOver = (id: string): void => {
     setActiveOfferId(id);
-    console.log(activeOfferId);
   };
   return (
     <div className="cities__places-list places__list tabs__content">

@@ -77,7 +77,7 @@ export const offerMocks: Offer[] = [
     type: RoomType.Apartment,
     price: 88,
     city: {
-      name: 'Amsterdam',
+      name: 'Cologne',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,

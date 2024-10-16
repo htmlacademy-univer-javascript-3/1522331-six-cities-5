@@ -1,5 +1,4 @@
 import { MainPage } from '../Pages/MainPage.tsx';
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../Pages/LoginPage.tsx';
 import { FavoritesPage } from '../Pages/FavoritesPage.tsx';
@@ -28,11 +27,11 @@ export function App({ offers }: AppProps): React.JSX.Element {
             path={AppRoutes.Favorites}
             element={
               <AuthorizationWrapper isAuthorized={true}>
-                <FavoritesPage />
+                <FavoritesPage offers={offers} />
               </AuthorizationWrapper>
             }
           />
-          <Route path={AppRoutes.Offer} element={<OfferPage />} />
+          <Route path={`${AppRoutes.Offer}/:id`} element={<OfferPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

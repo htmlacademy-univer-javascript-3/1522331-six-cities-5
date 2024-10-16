@@ -1,5 +1,6 @@
-import React from 'react';
-import { RoomType } from '../dataTypes/enums/RoomType.ts';
+import { RoomType } from '../../dataTypes/enums/RoomType.ts';
+import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../dataTypes/enums/AppRoutes.ts';
 
 interface PlaceCardProps {
   id: string;
@@ -31,7 +32,7 @@ export function OfferCard({
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`${AppRoutes.Offer}/:${id}`}>
           <img
             className="place-card__image"
             src={`../../markup/img/${image}`}
@@ -39,7 +40,7 @@ export function OfferCard({
             height="200"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -66,7 +67,7 @@ export function OfferCard({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`${AppRoutes.Offer}/:${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
