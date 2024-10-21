@@ -13,6 +13,8 @@ export function ReviewForm(): React.JSX.Element {
   const onCommentChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
     event,
   ): void => setReview({ ...review, comment: event.target.value });
+  const isValid =
+    review?.comment && review?.comment?.length >= 50 && review?.rating;
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
@@ -125,7 +127,7 @@ export function ReviewForm(): React.JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={!isValid}
         >
           Submit
         </button>
