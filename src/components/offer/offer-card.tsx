@@ -1,32 +1,45 @@
-import React from 'react';
-import { RoomType } from '../DataTypes/RoomType.ts';
+import { RoomType } from '../../dataTypes/enums/room-type.ts';
+import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 
 interface PlaceCardProps {
+  id: string;
   price: number;
   type: RoomType;
   image: string;
-  description: string;
+  title: string;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
   isPremium?: boolean;
-  isInBookmarks?: boolean;
+  isFavorite?: boolean;
 }
 
-export function PlaceCard({
+export function OfferCard({
+  id,
   price,
   type,
   image,
-  description,
+  title,
+  onMouseEnter,
+  onMouseLeave,
   isPremium,
-  isInBookmarks,
+  isFavorite,
 }: PlaceCardProps): React.JSX.Element {
+  const handleMouseEnter = (): void => onMouseEnter?.(id);
+  const handleMouseLeave = (): void => onMouseLeave?.();
   return (
-    <article className="cities__card place-card">
+    <article
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="cities__card place-card"
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`${AppRoutes.Offer}/:${id}`}>
           <img
             className="place-card__image"
             src={`../../markup/img/${image}`}
@@ -34,7 +47,7 @@ export function PlaceCard({
             height="200"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -43,14 +56,14 @@ export function PlaceCard({
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${isInBookmarks ? 'place-card__bookmark-button--active' : ''} button`}
+            className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">
-              {isInBookmarks ? 'In bookmarks' : 'To bookmarks'}
+              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
             </span>
           </button>
         </div>
@@ -61,7 +74,7 @@ export function PlaceCard({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{description}</a>
+          <Link to={`${AppRoutes.Offer}/:${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

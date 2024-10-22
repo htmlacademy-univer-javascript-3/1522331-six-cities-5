@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styles from './NotFoundPage.module.css';
+import styles from './not-found-page.module.css';
 import { Helmet } from 'react-helmet-async';
 
 export function NotFoundPage(): React.JSX.Element {

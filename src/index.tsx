@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from './components/App.tsx';
+import { App } from './components/app.tsx';
+import { offerMocks } from './mocks/offers.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -8,6 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App placeCount={5} />
+    <App offers={offerMocks} />
   </React.StrictMode>,
 );
