@@ -1,13 +1,13 @@
-import { MainPage } from '../Pages/MainPage.tsx';
+import { MainPage } from '../pages/main-page.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { LoginPage } from '../Pages/LoginPage.tsx';
-import { FavoritesPage } from '../Pages/FavoritesPage.tsx';
-import { OfferPage } from '../Pages/OfferPage.tsx';
-import { NotFoundPage } from '../Pages/NotFoundPage/NotFoundPage.tsx';
-import { AuthorizationWrapper } from './AuthorizationWrapper.tsx';
-import { AppRoutes } from '../dataTypes/enums/AppRoutes.ts';
+import { LoginPage } from '../pages/login-page.tsx';
+import { FavoritesPage } from '../pages/favorites-page.tsx';
+import { OfferPage } from '../pages/offer-page.tsx';
+import { NotFoundPage } from '../pages/not-found-page/not-found-page.tsx';
+import { AuthorizationWrapper } from './authorization-wrapper.tsx';
+import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
 import { HelmetProvider } from 'react-helmet-async';
-import { Offer } from '../dataTypes/Offer.ts';
+import { Offer } from '../dataTypes/offer.ts';
 
 interface AppProps {
   offers: Offer[];

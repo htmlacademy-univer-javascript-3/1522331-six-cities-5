@@ -1,5 +1,5 @@
-import { Offer } from '../../dataTypes/Offer.ts';
-import { OffersList } from './OffersList.tsx';
+import { Offer } from '../../dataTypes/offer.ts';
+import { OffersList } from './offers-list.tsx';
 
 interface OfferGroupProps {
   cityName: string;

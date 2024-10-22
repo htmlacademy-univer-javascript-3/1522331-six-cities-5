@@ -1,4 +1,4 @@
-import { AppRoutes } from '../dataTypes/enums/AppRoutes.ts';
+import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
 import { Link } from 'react-router-dom';
 
 interface LayoutProps {

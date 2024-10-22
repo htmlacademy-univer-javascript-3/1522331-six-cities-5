@@ -1,5 +1,5 @@
-import { Offer } from '../../dataTypes/Offer.ts';
-import { OfferCard } from './OfferCard.tsx';
+import { Offer } from '../../dataTypes/offer.ts';
+import { OfferCard } from './offer-card.tsx';
 import React from 'react';
 import { Nullable } from 'vitest';
 

@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Layout } from '../components/Layout.tsx';
-import { OffersList } from '../components/offer/OffersList.tsx';
+import { Layout } from '../components/layout.tsx';
+import { OffersList } from '../components/offer/offers-list.tsx';
 import { offerMocks } from '../mocks/offers.ts';
-import { ReviewForm } from '../components/ReviewForm.tsx';
+import { ReviewForm } from '../components/review-form.tsx';
 
 export function OfferPage(): React.JSX.Element {
   return (

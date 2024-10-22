@@ -1,5 +1,5 @@
-import { Offer } from '../dataTypes/Offer.ts';
-import { RoomType } from '../dataTypes/enums/RoomType.ts';
+import { Offer } from '../dataTypes/offer.ts';
+import { RoomType } from '../dataTypes/enums/room-type.ts';
 
 export const offerMocks: Offer[] = [
   {

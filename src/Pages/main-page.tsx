@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Offer } from '../dataTypes/Offer.ts';
-import { OffersList } from '../components/offer/OffersList.tsx';
-import { Layout } from '../components/Layout.tsx';
+import { Offer } from '../dataTypes/offer.ts';
+import { OffersList } from '../components/offer/offers-list.tsx';
+import { Layout } from '../components/layout.tsx';
 import { Helmet } from 'react-helmet-async';
 import { Nullable } from 'vitest';
 

@@ -1,6 +1,6 @@
-import { Location } from './Location.ts';
-import { City } from './City.ts';
-import { RoomType } from './enums/RoomType.ts';
+import { Location } from './location.ts';
+import { City } from './city.ts';
+import { RoomType } from './enums/room-type.ts';
 
 export type Offer = {
   id: string;

@@ -1,6 +1,6 @@
-import { RoomType } from '../../dataTypes/enums/RoomType.ts';
+import { RoomType } from '../../dataTypes/enums/room-type.ts';
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../dataTypes/enums/AppRoutes.ts';
+import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 
 interface PlaceCardProps {
   id: string;
