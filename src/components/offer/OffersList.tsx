@@ -1,15 +1,22 @@
 import { Offer } from '../../dataTypes/Offer.ts';
 import { OfferCard } from './OfferCard.tsx';
-import React, { useState } from 'react';
+import React from 'react';
+import { Nullable } from 'vitest';
 
 interface OffersListProps {
   offers: Offer[];
+  onActiveOfferChange?: (offerId: Nullable<string>) => void;
 }
 
-export function OffersList({ offers }: OffersListProps): React.JSX.Element {
-  const [activeOfferId, setActiveOfferId] = useState('');
-  const handleMouseOver = (id: string): void => {
-    setActiveOfferId(id);
+export function OffersList({
+  offers,
+  onActiveOfferChange,
+}: OffersListProps): React.JSX.Element {
+  const handleMouseEnter = (id: string): void => {
+    onActiveOfferChange?.(id);
+  };
+  const handleMouseLeave = (): void => {
+    onActiveOfferChange?.(null);
   };
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -21,7 +28,8 @@ export function OffersList({ offers }: OffersListProps): React.JSX.Element {
           type={offer.type}
           image={offer.previewImage}
           title={offer.title}
-          onMouseOver={handleMouseOver}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           isFavorite={offer.isFavorite}
           isPremium={offer.isPremium}
         />

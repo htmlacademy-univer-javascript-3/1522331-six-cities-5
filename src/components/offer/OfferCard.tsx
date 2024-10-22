@@ -8,7 +8,8 @@ interface PlaceCardProps {
   type: RoomType;
   image: string;
   title: string;
-  onMouseOver: (id: string) => void;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
   isPremium?: boolean;
   isFavorite?: boolean;
 }
@@ -19,13 +20,19 @@ export function OfferCard({
   type,
   image,
   title,
-  onMouseOver,
+  onMouseEnter,
+  onMouseLeave,
   isPremium,
   isFavorite,
 }: PlaceCardProps): React.JSX.Element {
-  const handleMouseOver = (): void => onMouseOver(id);
+  const handleMouseEnter = (): void => onMouseEnter?.(id);
+  const handleMouseLeave = (): void => onMouseLeave?.();
   return (
-    <article onMouseOver={handleMouseOver} className="cities__card place-card">
+    <article
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="cities__card place-card"
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
