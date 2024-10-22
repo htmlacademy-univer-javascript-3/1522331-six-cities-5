@@ -12,11 +12,8 @@ export function OffersList({
   offers,
   onActiveOfferChange,
 }: OffersListProps): React.JSX.Element {
-  const handleMouseEnter = (id: string): void => {
+  const handleActiveOfferChange = (id: Nullable<string>): void => {
     onActiveOfferChange?.(id);
-  };
-  const handleMouseLeave = (): void => {
-    onActiveOfferChange?.(null);
   };
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -28,8 +25,8 @@ export function OffersList({
           type={offer.type}
           image={offer.previewImage}
           title={offer.title}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onMouseEnter={() => handleActiveOfferChange(offer.id)}
+          onMouseLeave={() => handleActiveOfferChange(null)}
           isFavorite={offer.isFavorite}
           isPremium={offer.isPremium}
         />
