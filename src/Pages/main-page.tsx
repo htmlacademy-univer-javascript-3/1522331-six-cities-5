@@ -4,13 +4,14 @@ import { OffersList } from '../components/offer/offers-list.tsx';
 import { Layout } from '../components/layout.tsx';
 import { Helmet } from 'react-helmet-async';
 import { Nullable } from 'vitest';
+import { Map } from '../components/map/map.tsx';
 
 interface MainPageProps {
   offers: Offer[];
 }
 
 export function MainPage({ offers }: MainPageProps): React.JSX.Element {
-  const [activeOfferId, setActiveOfferId] = useState<Nullable<string>>('');
+  const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
   return (
     <Layout showFooter>
       <main className="page__main page__main--index">
@@ -87,13 +88,27 @@ export function MainPage({ offers }: MainPageProps): React.JSX.Element {
               </form>
               <OffersList
                 offers={offers}
-                onActiveOfferChange={(offerId: Nullable<string>) =>
-                  setActiveOfferId(offerId)
+                onActiveOfferChange={(offer: Nullable<Offer>) =>
+                  setActiveOffer(offer)
                 }
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map
+                city={offers[0].city}
+                points={offers.map((x) => ({
+                  location: x.location,
+                  id: x.id,
+                }))}
+                selectedPoint={
+                  activeOffer
+                    ? {
+                        location: activeOffer?.location,
+                        id: activeOffer?.id,
+                      }
+                    : undefined
+                }
+              />
             </div>
           </div>
         </div>
