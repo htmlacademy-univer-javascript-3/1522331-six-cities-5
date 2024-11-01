@@ -1,14 +1,16 @@
-﻿import { useRef, useEffect } from 'react';
+﻿import React, { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMap } from './use-map.ts';
 import { City } from '../../dataTypes/city.ts';
 import { Point } from '../../dataTypes/point.ts';
+import cn from 'classnames';
 
 interface MapProps {
   city: City;
   points: Point[];
   selectedPoint: Point | undefined;
+  isOnMainPage?: boolean;
 }
 
 const defaultCustomIcon = new Icon({
@@ -23,8 +25,8 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export function Map(props: MapProps): JSX.Element {
-  const { city, points, selectedPoint } = props;
+export function Map(props: MapProps): React.JSX.Element {
+  const { city, points, selectedPoint, isOnMainPage } = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -53,5 +55,14 @@ export function Map(props: MapProps): JSX.Element {
     }
   }, [map, points, selectedPoint]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return (
+    <section
+      className={cn(
+        'map',
+        { cities__map: isOnMainPage },
+        { offer__map: !isOnMainPage },
+      )}
+      ref={mapRef}
+    ></section>
+  );
 }

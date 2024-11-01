@@ -1,6 +1,7 @@
 import { RoomType } from '../../dataTypes/enums/room-type.ts';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
+import cn from 'classnames';
 
 interface PlaceCardProps {
   id: string;
@@ -12,6 +13,7 @@ interface PlaceCardProps {
   onMouseLeave?: () => void;
   isPremium?: boolean;
   isFavorite?: boolean;
+  isOnMainPage?: boolean;
 }
 
 export function OfferCard({
@@ -24,6 +26,7 @@ export function OfferCard({
   onMouseLeave,
   isPremium,
   isFavorite,
+  isOnMainPage,
 }: PlaceCardProps): React.JSX.Element {
   const handleMouseEnter = (): void => onMouseEnter?.(id);
   const handleMouseLeave = (): void => onMouseLeave?.();
@@ -31,15 +34,25 @@ export function OfferCard({
     <article
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="cities__card place-card"
+      className={cn(
+        'place-card',
+        { cities__card: isOnMainPage },
+        { 'near-places__card': !isOnMainPage },
+      )}
     >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoutes.Offer}/:${id}`}>
+      <div
+        className={cn(
+          'place-card__image-wrapper',
+          { 'cities__image-wrapper': isOnMainPage },
+          { 'near-places__image-wrapper': !isOnMainPage },
+        )}
+      >
+        <Link to={`${AppRoutes.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={`../../markup/img/${image}`}

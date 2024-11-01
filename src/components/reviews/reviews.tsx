@@ -7,9 +7,23 @@ interface ReviewsProps {
 }
 
 export function Reviews({ reviews }: ReviewsProps): React.JSX.Element {
+  const reviewsAvailable = reviews && reviews.length != 0;
   return (
     <section className="offer__reviews reviews">
-      <ReviewsList reviews={reviews} />
+      {reviewsAvailable ? (
+        <ReviewsList reviews={reviews} />
+      ) : (
+        <span
+          className="reviews__item"
+          style={{
+            justifyContent: 'center',
+            fontSize: 12,
+            color: 'lightgray',
+          }}
+        >
+          No reviews available
+        </span>
+      )}
       <ReviewForm />
     </section>
   );

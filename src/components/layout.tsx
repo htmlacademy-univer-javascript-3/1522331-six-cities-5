@@ -11,7 +11,7 @@ export function Layout({
   showFooter,
 }: LayoutProps): React.JSX.Element {
   return (
-    <div className="page">
+    <>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -64,6 +64,6 @@ export function Layout({
           </a>
         </footer>
       )}
-    </div>
+    </>
   );
 }
