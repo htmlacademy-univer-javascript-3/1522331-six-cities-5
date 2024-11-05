@@ -90,8 +90,7 @@ export function MainPage({ offers }: MainPageProps): React.JSX.Element {
                 <OffersList
                   offers={offers}
                   onActiveOfferChange={(offer: Nullable<Offer>) =>
-                    setActiveOffer(offer)
-                  }
+                    setActiveOffer(offer)}
                   isOnMainPage
                 />
               </section>
@@ -105,9 +104,9 @@ export function MainPage({ offers }: MainPageProps): React.JSX.Element {
                   selectedPoint={
                     activeOffer
                       ? {
-                          location: activeOffer?.location,
-                          id: activeOffer?.id,
-                        }
+                        location: activeOffer?.location,
+                        id: activeOffer?.id,
+                      }
                       : undefined
                   }
                   isOnMainPage

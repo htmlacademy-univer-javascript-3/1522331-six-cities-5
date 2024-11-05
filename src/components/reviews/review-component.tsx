@@ -1,4 +1,7 @@
-﻿interface ReviewProps {
+﻿import { getFirstName } from '../../utils/username-utils.ts';
+import { Rating } from '../rating.tsx';
+
+interface ReviewProps {
   comment: string;
   rating: number;
   date: Date;
@@ -25,15 +28,10 @@ export function ReviewComponent({
             alt="Reviews avatar"
           />
         </div>
-        <span className="reviews__user-name">{userName}</span>
+        <span className="reviews__user-name">{getFirstName(userName)}</span>
       </div>
       <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{ width: `${rating * 20}%` }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating rating={rating} usePlace="reviews" />
         <p className="reviews__text">{comment}</p>
         <time className="reviews__time" dateTime={date.toDateString()}>
           {date.toLocaleDateString('en-US', {})}

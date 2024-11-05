@@ -7,7 +7,7 @@ interface ReviewsProps {
 }
 
 export function Reviews({ reviews }: ReviewsProps): React.JSX.Element {
-  const reviewsAvailable = reviews && reviews.length != 0;
+  const reviewsAvailable = reviews && reviews.length !== 0;
   return (
     <section className="offer__reviews reviews">
       {reviewsAvailable ? (

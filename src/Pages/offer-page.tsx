@@ -5,74 +5,37 @@ import { offerMocks } from '../mocks/offers.ts';
 import { Reviews } from '../components/reviews/reviews.tsx';
 import { reviewMocks } from '../mocks/reviews.ts';
 import { Map } from '../components/map/map.tsx';
-import React, { useState } from 'react';
-import { Nullable } from 'vitest';
-import { Offer } from '../dataTypes/offer.ts';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { OfferInsideItems } from '../components/offer/offer-inside-items.tsx';
+import { detailedOfferMocks } from '../mocks/detailed-offer.ts';
+import { OfferHost } from '../components/offer/offer-host.tsx';
+import { capitalize, pluralizeAndCombine } from '../utils/string-utils.ts';
+import { Rating } from '../components/rating.tsx';
+import { OfferGallery } from '../components/offer/offer-gallery.tsx';
 
 export function OfferPage(): React.JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
-  const offers = offerMocks.slice(0, 3);
+  const offerId = useParams().id;
+  const offers = offerMocks.filter((offer) => offer.id !== offerId).slice(0, 3);
+  const currentOffer = detailedOfferMocks.find(
+    (offer) => offer.id === offerId,
+  )!;
   return (
     <div className="page">
       <Layout>
         <main className="page__main page__main--offer">
           <Helmet>6 cities - offer</Helmet>
           <section className="offer">
-            <div className="offer__gallery-container container">
-              <div className="offer__gallery">
-                <div className="offer__image-wrapper">
-                  <img
-                    className="offer__image"
-                    src="img/room.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img
-                    className="offer__image"
-                    src="img/apartment-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img
-                    className="offer__image"
-                    src="img/apartment-02.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img
-                    className="offer__image"
-                    src="img/apartment-03.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img
-                    className="offer__image"
-                    src="img/studio-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img
-                    className="offer__image"
-                    src="img/apartment-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-              </div>
-            </div>
+            <OfferGallery imageSources={currentOffer.images} />
             <div className="offer__container container">
               <div className="offer__wrapper">
-                <div className="offer__mark">
-                  <span>Premium</span>
-                </div>
+                {currentOffer.isPremium && (
+                  <div className="offer__mark">
+                    <span>Premium</span>
+                  </div>
+                )}
                 <div className="offer__name-wrapper">
-                  <h1 className="offer__name">
-                    Beautiful &amp; luxurious studio at great location
-                  </h1>
+                  <h1 className="offer__name">{currentOffer.title}</h1>
                   <button
                     className="offer__bookmark-button button"
                     type="button"
@@ -87,58 +50,31 @@ export function OfferPage(): React.JSX.Element {
                     <span className="visually-hidden">To bookmarks</span>
                   </button>
                 </div>
-                <div className="offer__rating rating">
-                  <div className="offer__stars rating__stars">
-                    <span style={{ width: '80%' }}></span>
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                  <span className="offer__rating-value rating__value">4.8</span>
-                </div>
+                <Rating
+                  rating={currentOffer.rating}
+                  usePlace="offer"
+                  isInOffer
+                />
                 <ul className="offer__features">
                   <li className="offer__feature offer__feature--entire">
-                    Apartment
+                    {capitalize(currentOffer.type)}
                   </li>
                   <li className="offer__feature offer__feature--bedrooms">
-                    3 Bedrooms
+                    {pluralizeAndCombine('bedroom', currentOffer.bedrooms)}
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max 4 adults
+                    Max {pluralizeAndCombine('adult', currentOffer.maxAdults)}
                   </li>
                 </ul>
                 <div className="offer__price">
-                  <b className="offer__price-value">&euro;120</b>
+                  <b className="offer__price-value">
+                    &euro;{currentOffer.price}
+                  </b>
                   <span className="offer__price-text">&nbsp;night</span>
                 </div>
-                <div className="offer__inside">
-                  <h2 className="offer__inside-title">What&apos;s inside</h2>
-                  <ul className="offer__inside-list">
-                    <li className="offer__inside-item">Wi-Fi</li>
-                    <li className="offer__inside-item">Washing machine</li>
-                    <li className="offer__inside-item">Towels</li>
-                    <li className="offer__inside-item">Heating</li>
-                    <li className="offer__inside-item">Coffee machine</li>
-                    <li className="offer__inside-item">Baby seat</li>
-                    <li className="offer__inside-item">Kitchen</li>
-                    <li className="offer__inside-item">Dishwasher</li>
-                    <li className="offer__inside-item">Cabel TV</li>
-                    <li className="offer__inside-item">Fridge</li>
-                  </ul>
-                </div>
+                <OfferInsideItems items={currentOffer.goods} />
                 <div className="offer__host">
-                  <h2 className="offer__host-title">Meet the host</h2>
-                  <div className="offer__host-user user">
-                    <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                      <img
-                        className="offer__avatar user__avatar"
-                        src="img/avatar-angelina.jpg"
-                        width="74"
-                        height="74"
-                        alt="Host avatar"
-                      />
-                    </div>
-                    <span className="offer__user-name">Angelina</span>
-                    <span className="offer__user-status">Pro</span>
-                  </div>
+                  <OfferHost host={currentOffer.host} />
                   <div className="offer__description">
                     <p className="offer__text">
                       A quiet cozy and picturesque that hides behind a a river
@@ -158,18 +94,14 @@ export function OfferPage(): React.JSX.Element {
             </div>
             <Map
               city={offers[0].city}
-              points={offers.map((x) => ({
+              points={[...offers, currentOffer].map((x) => ({
                 location: x.location,
                 id: x.id,
               }))}
-              selectedPoint={
-                activeOffer
-                  ? {
-                      location: activeOffer?.location,
-                      id: activeOffer?.id,
-                    }
-                  : undefined
-              }
+              selectedPoint={{
+                location: currentOffer.location,
+                id: currentOffer.id,
+              }}
             />
           </section>
           <div className="container">
@@ -178,10 +110,7 @@ export function OfferPage(): React.JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-                <OffersList
-                  offers={offers}
-                  onActiveOfferChange={setActiveOffer}
-                />
+                <OffersList offers={offers} />
               </div>
             </section>
           </div>

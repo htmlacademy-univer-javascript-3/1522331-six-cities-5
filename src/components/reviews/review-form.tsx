@@ -117,7 +117,8 @@ export function ReviewForm(): React.JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={onCommentChange}
-      ></textarea>
+      >
+      </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}

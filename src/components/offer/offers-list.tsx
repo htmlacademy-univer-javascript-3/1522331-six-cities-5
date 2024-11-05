@@ -27,6 +27,7 @@ export function OffersList({
           type={offer.type}
           image={offer.previewImage}
           title={offer.title}
+          rating={offer.rating}
           onMouseEnter={() => handleActiveOfferChange(offer)}
           onMouseLeave={() => handleActiveOfferChange(null)}
           isFavorite={offer.isFavorite}

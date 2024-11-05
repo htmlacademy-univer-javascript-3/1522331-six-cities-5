@@ -2,6 +2,7 @@ import { RoomType } from '../../dataTypes/enums/room-type.ts';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 import cn from 'classnames';
+import { Rating } from '../rating.tsx';
 
 interface PlaceCardProps {
   id: string;
@@ -9,6 +10,7 @@ interface PlaceCardProps {
   type: RoomType;
   image: string;
   title: string;
+  rating: number;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
   isPremium?: boolean;
@@ -22,6 +24,7 @@ export function OfferCard({
   type,
   image,
   title,
+  rating,
   onMouseEnter,
   onMouseLeave,
   isPremium,
@@ -36,7 +39,7 @@ export function OfferCard({
       onMouseLeave={handleMouseLeave}
       className={cn(
         'place-card',
-        { cities__card: isOnMainPage },
+        { 'cities__card': isOnMainPage },
         { 'near-places__card': !isOnMainPage },
       )}
     >
@@ -80,14 +83,9 @@ export function OfferCard({
             </span>
           </button>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: '100%' }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating rating={rating} usePlace="place-card" />
         <h2 className="place-card__name">
-          <Link to={`${AppRoutes.Offer}/:${id}`}>{title}</Link>
+          <Link to={`${AppRoutes.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

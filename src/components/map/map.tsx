@@ -59,10 +59,11 @@ export function Map(props: MapProps): React.JSX.Element {
     <section
       className={cn(
         'map',
-        { cities__map: isOnMainPage },
-        { offer__map: !isOnMainPage },
+        { 'cities__map': isOnMainPage },
+        { 'offer__map': !isOnMainPage },
       )}
       ref={mapRef}
-    ></section>
+    >
+    </section>
   );
 }

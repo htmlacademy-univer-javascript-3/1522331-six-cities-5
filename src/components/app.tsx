@@ -26,7 +26,7 @@ export function App({ offers }: AppProps): React.JSX.Element {
           <Route
             path={AppRoutes.Favorites}
             element={
-              <AuthorizationWrapper isAuthorized={true}>
+              <AuthorizationWrapper isAuthorized={false}>
                 <FavoritesPage offers={offers} />
               </AuthorizationWrapper>
             }
