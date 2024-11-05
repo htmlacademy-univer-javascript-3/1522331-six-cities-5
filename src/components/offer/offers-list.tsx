@@ -5,15 +5,15 @@ import { Nullable } from 'vitest';
 
 interface OffersListProps {
   offers: Offer[];
-  onActiveOfferChange?: (offerId: Nullable<string>) => void;
+  onActiveOfferChange?: (offer: Nullable<Offer>) => void;
 }
 
 export function OffersList({
   offers,
   onActiveOfferChange,
 }: OffersListProps): React.JSX.Element {
-  const handleActiveOfferChange = (id: Nullable<string>): void => {
-    onActiveOfferChange?.(id);
+  const handleActiveOfferChange = (offer: Nullable<Offer>): void => {
+    onActiveOfferChange?.(offer);
   };
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -25,7 +25,7 @@ export function OffersList({
           type={offer.type}
           image={offer.previewImage}
           title={offer.title}
-          onMouseEnter={() => handleActiveOfferChange(offer.id)}
+          onMouseEnter={() => handleActiveOfferChange(offer)}
           onMouseLeave={() => handleActiveOfferChange(null)}
           isFavorite={offer.isFavorite}
           isPremium={offer.isPremium}
