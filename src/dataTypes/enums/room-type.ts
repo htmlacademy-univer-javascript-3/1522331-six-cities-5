@@ -1,4 +1,4 @@
 export enum RoomType {
-  Apartment = 'apartment',
-  Room = 'room',
+  Apartment = 'Apartment',
+  Room = 'Room',
 }

@@ -6,11 +6,13 @@ import { Nullable } from 'vitest';
 interface OffersListProps {
   offers: Offer[];
   onActiveOfferChange?: (offer: Nullable<Offer>) => void;
+  isOnMainPage?: boolean;
 }
 
 export function OffersList({
   offers,
   onActiveOfferChange,
+  isOnMainPage,
 }: OffersListProps): React.JSX.Element {
   const handleActiveOfferChange = (offer: Nullable<Offer>): void => {
     onActiveOfferChange?.(offer);
@@ -25,10 +27,12 @@ export function OffersList({
           type={offer.type}
           image={offer.previewImage}
           title={offer.title}
+          rating={offer.rating}
           onMouseEnter={() => handleActiveOfferChange(offer)}
           onMouseLeave={() => handleActiveOfferChange(null)}
           isFavorite={offer.isFavorite}
           isPremium={offer.isPremium}
+          isOnMainPage={isOnMainPage}
         />
       ))}
     </div>

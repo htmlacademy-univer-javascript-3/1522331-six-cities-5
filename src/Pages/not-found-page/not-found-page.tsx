@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom';
-import styles from './not-found-page.module.css';
 import { Helmet } from 'react-helmet-async';
+import {AppRoutes} from '../../dataTypes/enums/app-routes.ts';
 
 export function NotFoundPage(): React.JSX.Element {
   return (
-    <main className={styles.container}>
+    <main className='not-found-page'>
       <Helmet>
         <title>404 - not found</title>
       </Helmet>
       <h1>404 - Page Not Found</h1>
-      <p className={styles.title}>
+      <p className='not-found-page__title'>
         The page you are looking for might have been removed or is temporarily
         unavailable.
       </p>
-      <Link to="/public" className={styles.link}>
+      <Link to={AppRoutes.MainPage} className='not-found-page__link'>
         back to main page
       </Link>
     </main>
