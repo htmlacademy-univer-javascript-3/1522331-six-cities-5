@@ -1,5 +1,5 @@
-import { Offer } from '../dataTypes/offer.ts';
-import { RoomType } from '../dataTypes/enums/room-type.ts';
+import {Offer} from '../dataTypes/offer.ts';
+import {RoomType} from '../dataTypes/enums/room-type.ts';
 
 export const offerMocks: Offer[] = [
   {
@@ -54,16 +54,16 @@ export const offerMocks: Offer[] = [
     type: RoomType.Room,
     price: 14,
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 48.864716123123,
+        longitude: 2.34901412113,
         zoom: 8,
       },
     },
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.929309666406198,
+      latitude: 48.864716123123,
+      longitude: 2.34901412113,
       zoom: 8,
     },
     isFavorite: true,

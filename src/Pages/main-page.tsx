@@ -5,61 +5,31 @@ import { Layout } from '../components/layout.tsx';
 import { Helmet } from 'react-helmet-async';
 import { Nullable } from 'vitest';
 import { Map } from '../components/map/map.tsx';
+import { useAppSelector } from '../store/store.ts';
+import { CitiesList } from '../components/cities-list.tsx';
+import { pluralizeAndCombine } from '../utils/string-utils.ts';
 
-interface MainPageProps {
-  offers: Offer[];
-}
-
-export function MainPage({ offers }: MainPageProps): React.JSX.Element {
+export function MainPage(): React.JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
+  const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers).filter(
+    (offer) => offer.city.name === city.name,
+  );
+
   return (
     <div className="page page--gray page--main">
       <Layout showFooter>
         <main className="page__main page__main--index">
           <Helmet>6 cities</Helmet>
           <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Paris</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Cologne</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Brussels</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item tabs__item--active">
-                    <span>Amsterdam</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Hamburg</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Dusseldorf</span>
-                  </a>
-                </li>
-              </ul>
-            </section>
-          </div>
+          <CitiesList activeCityName={city.name} />
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offers.length} places to stay in Amsterdam
+                  {pluralizeAndCombine('place', offers.length)} to stay in{' '}
+                  {city.name}
                 </b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
@@ -96,7 +66,7 @@ export function MainPage({ offers }: MainPageProps): React.JSX.Element {
               </section>
               <div className="cities__right-section">
                 <Map
-                  city={offers[0].city}
+                  city={city}
                   points={offers.map((x) => ({
                     location: x.location,
                     id: x.id,
