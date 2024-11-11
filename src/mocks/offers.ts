@@ -1,5 +1,5 @@
-import {Offer} from '../dataTypes/offer.ts';
-import {RoomType} from '../dataTypes/enums/room-type.ts';
+import { Offer } from '../dataTypes/offer.ts';
+import { RoomType } from '../dataTypes/enums/room-type.ts';
 
 export const offerMocks: Offer[] = [
   {
@@ -45,7 +45,7 @@ export const offerMocks: Offer[] = [
     },
     isFavorite: false,
     isPremium: true,
-    rating: 4,
+    rating: 3,
     previewImage: 'apartment-02.jpg',
   },
   {
@@ -91,7 +91,7 @@ export const offerMocks: Offer[] = [
     },
     isFavorite: true,
     isPremium: true,
-    rating: 4,
+    rating: 5,
     previewImage: 'apartment-02.jpg',
   },
 ];

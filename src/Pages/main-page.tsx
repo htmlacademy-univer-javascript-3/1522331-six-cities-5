@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { Offer } from '../dataTypes/offer.ts';
 import { OffersList } from '../components/offer/offers-list.tsx';
 import { Layout } from '../components/layout.tsx';
@@ -8,14 +9,18 @@ import { Map } from '../components/map/map.tsx';
 import { useAppSelector } from '../store/store.ts';
 import { CitiesList } from '../components/cities-list.tsx';
 import { pluralizeAndCombine } from '../utils/string-utils.ts';
+import { OfferSortSelect } from '../components/offer/offer-sort-select.tsx';
 
 export function MainPage(): React.JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
+  const [offers, setOffers] = useState<Offer[]>([]);
   const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers).filter(
+  const unsortedOffers = useAppSelector((state) => state.offers).filter(
     (offer) => offer.city.name === city.name,
   );
-
+  useEffect(() => {
+    setOffers(unsortedOffers);
+  }, [city]);
   return (
     <div className="page page--gray page--main">
       <Layout showFooter>
@@ -31,32 +36,9 @@ export function MainPage(): React.JSX.Element {
                   {pluralizeAndCombine('place', offers.length)} to stay in{' '}
                   {city.name}
                 </b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
-                  <span className="places__sorting-type" tabIndex={0}>
-                    Popular
-                    <svg className="places__sorting-arrow" width="7" height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li
-                      className="places__option places__option--active"
-                      tabIndex={0}
-                    >
-                      Popular
-                    </li>
-                    <li className="places__option" tabIndex={0}>
-                      Price: low to high
-                    </li>
-                    <li className="places__option" tabIndex={0}>
-                      Price: high to low
-                    </li>
-                    <li className="places__option" tabIndex={0}>
-                      Top rated first
-                    </li>
-                  </ul>
-                </form>
+                <OfferSortSelect
+                  onSortChange={(sort) => setOffers(sort(offers))}
+                />
                 <OffersList
                   offers={offers}
                   onActiveOfferChange={(offer: Nullable<Offer>) =>
