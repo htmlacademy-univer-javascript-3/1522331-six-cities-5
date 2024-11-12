@@ -94,4 +94,27 @@ export const offerMocks: Offer[] = [
     rating: 5,
     previewImage: 'apartment-02.jpg',
   },
+  {
+    id: '6af6f711-c28d-4121-82cd-e0b462a27f44',
+    title: 'amogus',
+    type: RoomType.Apartment,
+    price: 88,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 48.9,
+      longitude: 2.4,
+      zoom: 8,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 5,
+    previewImage: 'apartment-02.jpg',
+  },
 ];

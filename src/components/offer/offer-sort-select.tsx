@@ -1,35 +1,32 @@
 import React, { useState } from 'react';
 import { Offer } from '../../dataTypes/offer.ts';
 import { SortOffers } from '../../dataTypes/sort-offers.ts';
-
-interface OfferSortSelectProps {
-  onSortChange: (sort: SortOffers) => void;
-}
+import { useAppDispatch } from '../../store/store.ts';
+import { setSorting } from '../../store/actions.ts';
 
 const sortingOptions: [string, SortOffers][] = [
   ['Popular', (offers: Offer[]) => offers],
   [
     'Price: low to high',
-    (offers: Offer[]) => offers.sort((a, b) => a.price - b.price),
+    (offers: Offer[]) => offers.toSorted((a, b) => a.price - b.price),
   ],
   [
     'Price: high to low',
-    (offers: Offer[]) => offers.sort((a, b) => b.price - a.price),
+    (offers: Offer[]) => offers.toSorted((a, b) => b.price - a.price),
   ],
   [
     'Top rated first',
-    (offers: Offer[]) => offers.sort((a, b) => b.rating - a.rating),
+    (offers: Offer[]) => offers.toSorted((a, b) => b.rating - a.rating),
   ],
 ];
 
-export function OfferSortSelect({
-  onSortChange,
-}: OfferSortSelectProps): React.JSX.Element {
+export function OfferSortSelect(): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [sortingOption, setSortingOption] = useState('Popular');
+  const dispatch = useAppDispatch();
   const handleSortChange = (sort: SortOffers, sortingOptionName: string) => {
     setSortingOption(sortingOptionName);
-    onSortChange(sort);
+    dispatch(setSorting(sort));
     setIsOpen(false);
   };
   return (

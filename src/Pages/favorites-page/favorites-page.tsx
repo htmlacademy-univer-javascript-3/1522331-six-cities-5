@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { Layout } from '../components/layout.tsx';
-import { OfferGroup } from '../components/offer/offer-group.tsx';
-import { Offer } from '../dataTypes/offer.ts';
+import { Layout } from '../../components/layout.tsx';
+import { OfferGroup } from '../../components/offer/offer-group.tsx';
+import { Offer } from '../../dataTypes/offer.ts';
 
 interface FavoritesPageProps {
   offers: Offer[];
