@@ -1,10 +1,11 @@
 ﻿import React, { useRef, useEffect } from 'react';
-import { Icon, Marker, layerGroup } from 'leaflet';
+import { Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useMap } from './use-map.ts';
+import { useMap } from '../../hooks/use-map.ts';
 import { City } from '../../dataTypes/city.ts';
 import { Point } from '../../dataTypes/point.ts';
 import cn from 'classnames';
+import { currentCustomIcon, defaultCustomIcon } from './icons.ts';
 
 interface MapProps {
   city: City;
@@ -12,18 +13,6 @@ interface MapProps {
   selectedPoint: Point | undefined;
   isOnMainPage?: boolean;
 }
-
-const defaultCustomIcon = new Icon({
-  iconUrl: 'public/img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
-
-const currentCustomIcon = new Icon({
-  iconUrl: 'public/img/pin-active.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
 
 export function Map(props: MapProps): React.JSX.Element {
   const { city, points, selectedPoint, isOnMainPage } = props;
