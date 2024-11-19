@@ -13,6 +13,7 @@ import { OfferHost } from '../components/offer/offer-host.tsx';
 import { capitalize, pluralizeAndCombine } from '../utils/string-utils.ts';
 import { Rating } from '../components/rating.tsx';
 import { OfferGallery } from '../components/offer/offer-gallery.tsx';
+import {BookmarkButton} from "../components/bookmark-button.tsx";
 
 export function OfferPage(): React.JSX.Element {
   const offerId = useParams().id;
@@ -36,19 +37,7 @@ export function OfferPage(): React.JSX.Element {
                 )}
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">{currentOffer.title}</h1>
-                  <button
-                    className="offer__bookmark-button button"
-                    type="button"
-                  >
-                    <svg
-                      className="offer__bookmark-icon"
-                      width="31"
-                      height="33"
-                    >
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <BookmarkButton size='big' isFavorite={currentOffer.isFavorite} usagePlace='offer' />
                 </div>
                 <Rating
                   rating={currentOffer.rating}

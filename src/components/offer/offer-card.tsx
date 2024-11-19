@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 import cn from 'classnames';
 import { Rating } from '../rating.tsx';
+import {BookmarkButton} from "../bookmark-button.tsx";
 
 interface PlaceCardProps {
   id: string;
@@ -71,17 +72,7 @@ export function OfferCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">
-              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
-            </span>
-          </button>
+          <BookmarkButton size='small' isFavorite={isFavorite} usagePlace='place-card' />
         </div>
         <Rating rating={rating} usePlace="place-card" />
         <h2 className="place-card__name">
