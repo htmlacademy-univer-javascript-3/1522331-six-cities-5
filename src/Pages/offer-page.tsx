@@ -13,7 +13,7 @@ import { OfferHost } from '../components/offer/offer-host.tsx';
 import { capitalize, pluralizeAndCombine } from '../utils/string-utils.ts';
 import { Rating } from '../components/rating.tsx';
 import { OfferGallery } from '../components/offer/offer-gallery.tsx';
-import {BookmarkButton} from "../components/bookmark-button.tsx";
+import { BookmarkButton } from '../components/bookmark-button.tsx';
 
 export function OfferPage(): React.JSX.Element {
   const offerId = useParams().id;

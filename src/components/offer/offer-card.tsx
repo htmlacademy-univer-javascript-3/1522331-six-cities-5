@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 import cn from 'classnames';
 import { Rating } from '../rating.tsx';
-import {BookmarkButton} from "../bookmark-button.tsx";
+import { BookmarkButton } from '../bookmark-button.tsx';
 
 interface PlaceCardProps {
   id: string;
