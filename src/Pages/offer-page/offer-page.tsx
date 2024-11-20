@@ -1,19 +1,19 @@
 import { Helmet } from 'react-helmet-async';
-import { Layout } from '../components/layout.tsx';
-import { OffersList } from '../components/offer/offers-list.tsx';
-import { offerMocks } from '../mocks/offers.ts';
-import { Reviews } from '../components/reviews/reviews.tsx';
-import { reviewMocks } from '../mocks/reviews.ts';
-import { Map } from '../components/map/map.tsx';
+import { Layout } from '../../components/layout.tsx';
+import { OffersList } from '../../components/offer/offers-list.tsx';
+import { offerMocks } from '../../mocks/offers.ts';
+import { Reviews } from '../../components/reviews/reviews.tsx';
+import { reviewMocks } from '../../mocks/reviews.ts';
+import { Map } from '../../components/map/map.tsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { OfferInsideItems } from '../components/offer/offer-inside-items.tsx';
-import { detailedOfferMocks } from '../mocks/detailed-offer.ts';
-import { OfferHost } from '../components/offer/offer-host.tsx';
-import { capitalize, pluralizeAndCombine } from '../utils/string-utils.ts';
-import { Rating } from '../components/rating.tsx';
-import { OfferGallery } from '../components/offer/offer-gallery.tsx';
-import { BookmarkButton } from '../components/bookmark-button.tsx';
+import { OfferInsideItems } from '../../components/offer/offer-inside-items.tsx';
+import { detailedOfferMocks } from '../../mocks/detailed-offer.ts';
+import { OfferHost } from '../../components/offer/offer-host.tsx';
+import { capitalize, pluralizeAndCombine } from '../../utils/string-utils.ts';
+import { Rating } from '../../components/rating.tsx';
+import { OfferGallery } from '../../components/offer/offer-gallery.tsx';
+import { BookmarkButton } from '../../components/bookmark-button.tsx';
 
 export function OfferPage(): React.JSX.Element {
   const offerId = useParams().id;
