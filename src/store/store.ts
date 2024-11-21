@@ -1,6 +1,7 @@
 import { configureStore, createReducer } from '@reduxjs/toolkit';
 import {
   changeCity,
+  setAuthorizationStatus,
   setCurrentOffer,
   setNearbyOffers,
   setOffers,
@@ -15,6 +16,7 @@ import { City } from '../dataTypes/city.ts';
 import { SortOffers } from '../dataTypes/sort-offers.ts';
 import { Nullable } from 'vitest';
 import { DetailedOffer } from '../dataTypes/detailed-offer.ts';
+import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
 
 type InitialState = {
   city: City;
@@ -22,6 +24,7 @@ type InitialState = {
   sorting: SortOffers;
   currentOffer: Nullable<DetailedOffer>;
   nearbyOffers: Offer[];
+  authorizationStatus: AuthorizationStatus;
 };
 
 const initialState: InitialState = {
@@ -30,6 +33,7 @@ const initialState: InitialState = {
   sorting: (offers: Offer[]) => offers,
   currentOffer: null,
   nearbyOffers: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const api = createAPI();
@@ -50,6 +54,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 

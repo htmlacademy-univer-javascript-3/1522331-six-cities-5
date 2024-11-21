@@ -1,15 +1,26 @@
 import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
 import { Link } from 'react-router-dom';
+import { store, useAppSelector } from '../store/store.ts';
+import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
+import { logout } from '../store/actions.ts';
 
 interface LayoutProps {
   children: React.JSX.Element;
   showFooter?: boolean;
+  dontShowUserInfo?: boolean;
 }
 
 export function Layout({
   children,
   showFooter,
+  dontShowUserInfo,
 }: LayoutProps): React.JSX.Element {
+  const isAuthorized =
+    useAppSelector((state) => state.authorizationStatus) ===
+    AuthorizationStatus.Authorized;
+  const handleLogout = () => {
+    store.dispatch(logout());
+  };
   return (
     <>
       <header className="header">
@@ -26,27 +37,44 @@ export function Layout({
                 />
               </Link>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link
-                    className="header__nav-link header__nav-link--profile"
-                    to={AppRoutes.Favorites}
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            {dontShowUserInfo ||
+              (isAuthorized ? (
+                <nav className="header__nav">
+                  <ul className="header__nav-list">
+                    <li className="header__nav-item user">
+                      <Link
+                        className="header__nav-link header__nav-link--profile"
+                        to={AppRoutes.Favorites}
+                      >
+                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                        <span className="header__user-name user__name">
+                          Oliver.conner@gmail.com
+                        </span>
+                        <span className="header__favorite-count">3</span>
+                      </Link>
+                    </li>
+                    <li className="header__nav-item">
+                      <a className="header__nav-link" onClick={handleLogout}>
+                        <span className="header__signout">Sign out</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              ) : (
+                <nav className="header__nav">
+                  <ul className="header__nav-list">
+                    <li className="header__nav-item user">
+                      <Link
+                        className="header__nav-link header__nav-link--profile"
+                        to={AppRoutes.Login}
+                      >
+                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                        <span className="header__login">Sign in</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              ))}
           </div>
         </div>
       </header>
