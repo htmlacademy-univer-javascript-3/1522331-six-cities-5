@@ -11,7 +11,6 @@ import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts'
 import { AuthInfo, LoginInfo } from '../dataTypes/user.ts';
 import { saveToken } from '../utils/token-utils.ts';
 import { Review, ReviewShortInfo } from '../dataTypes/review.ts';
-import { store } from './store.ts';
 
 export const changeCity = createAction<City>('offers/changeCity');
 
@@ -137,12 +136,12 @@ export const postReview = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('review/fetchReviews', async (info, { extra: api }) => {
+>('review/fetchReviews', async (info, { dispatch, extra: api }) => {
   const response = await api.post(`${ApiRoutes.Comments}/${info.offerId}`, {
     comment: info.comment,
     rating: info.rating,
   });
   if (response.status === 201) {
-    store.dispatch(fetchReviews(info.offerId));
+    dispatch(fetchReviews(info.offerId));
   }
 });
