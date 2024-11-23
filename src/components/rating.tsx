@@ -3,12 +3,12 @@ import React from 'react';
 interface RatingProps {
   rating: number;
   usePlace: string;
-  isInOffer?: boolean;
+  showRatingValue?: boolean;
 }
 
 export function Rating({
   rating,
-  isInOffer,
+  showRatingValue,
   usePlace,
 }: RatingProps): React.JSX.Element {
   return (
@@ -17,7 +17,7 @@ export function Rating({
         <span style={{ width: `${Math.round(rating) * 20}%` }}></span>
         <span className="visually-hidden">Rating</span>
       </div>
-      {isInOffer && (
+      {showRatingValue && (
         <span className="offer__rating-value rating__value">{rating}</span>
       )}
     </div>

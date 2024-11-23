@@ -67,7 +67,7 @@ export function OfferPage(): React.JSX.Element {
                     <Rating
                       rating={currentOffer.rating}
                       usePlace="offer"
-                      isInOffer
+                      showRatingValue
                     />
                     <ul className="offer__features">
                       <li className="offer__feature offer__feature--entire">
