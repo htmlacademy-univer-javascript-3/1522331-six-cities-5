@@ -45,8 +45,7 @@ export function LoginPage(): React.JSX.Element {
                     name="email"
                     placeholder="Email"
                     onChange={(event) =>
-                      setLoginInfo({ ...loginInfo, email: event.target.value })
-                    }
+                      setLoginInfo({ ...loginInfo, email: event.target.value })}
                     required
                   />
                 </div>
@@ -61,8 +60,7 @@ export function LoginPage(): React.JSX.Element {
                       setLoginInfo({
                         ...loginInfo,
                         password: event.target.value,
-                      })
-                    }
+                      })}
                     required
                   />
                 </div>

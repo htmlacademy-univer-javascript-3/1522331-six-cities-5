@@ -6,7 +6,7 @@
 import { getToken } from '../utils/token-utils.ts';
 import { store } from '../store/store.ts';
 import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
-import { setAuthorizationStatus } from '../store/actions.ts';
+import { setAuthorizationStatus, setCurrentOffer } from '../store/actions.ts';
 
 const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -39,6 +39,9 @@ export const createAPI = (): AxiosInstance => {
         store.dispatch(
           setAuthorizationStatus(AuthorizationStatus.Unauthorized),
         );
+      }
+      if (error.response && error.response.status === 404) {
+        store.dispatch(setCurrentOffer(undefined));
       }
       throw error;
     },

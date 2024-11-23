@@ -3,6 +3,7 @@ import {
   changeCity,
   setAuthorizationStatus,
   setCurrentOffer,
+  setCurrentReviews,
   setNearbyOffers,
   setOffers,
   setSorting,
@@ -17,6 +18,7 @@ import { SortOffers } from '../dataTypes/sort-offers.ts';
 import { Nullable } from 'vitest';
 import { DetailedOffer } from '../dataTypes/detailed-offer.ts';
 import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
+import { Review } from '../dataTypes/review.ts';
 
 type InitialState = {
   city: City;
@@ -24,6 +26,7 @@ type InitialState = {
   sorting: SortOffers;
   currentOffer: Nullable<DetailedOffer>;
   nearbyOffers: Offer[];
+  currentReviews: Review[];
   authorizationStatus: AuthorizationStatus;
 };
 
@@ -33,6 +36,7 @@ const initialState: InitialState = {
   sorting: (offers: Offer[]) => offers,
   currentOffer: null,
   nearbyOffers: [],
+  currentReviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 
@@ -57,6 +61,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setCurrentReviews, (state, action) => {
+      state.currentReviews = action.payload;
     });
 });
 

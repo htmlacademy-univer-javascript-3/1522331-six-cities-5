@@ -4,7 +4,7 @@ import { OffersList } from '../../components/offer/offers-list.tsx';
 import { Reviews } from '../../components/reviews/reviews.tsx';
 import { Map } from '../../components/map/map.tsx';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { OfferInsideItems } from '../../components/offer/offer-inside-items.tsx';
 import { OfferHost } from '../../components/offer/offer-host.tsx';
 import { capitalize, pluralizeAndCombine } from '../../utils/string-utils.ts';
@@ -15,9 +15,11 @@ import { store, useAppSelector } from '../../store/store.ts';
 import {
   fetchNearbyOffers,
   fetchOffer,
+  fetchReviews,
   setCurrentOffer,
 } from '../../store/actions.ts';
 import { Spinner } from '../../components/spinner/Spinner.tsx';
+import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 
 export function OfferPage(): React.JSX.Element {
   const offerId = useParams().id;
@@ -25,12 +27,17 @@ export function OfferPage(): React.JSX.Element {
     store.dispatch(setCurrentOffer(null));
     store.dispatch(fetchOffer(offerId!));
     store.dispatch(fetchNearbyOffers(offerId!));
+    store.dispatch(fetchReviews(offerId!));
   }, [offerId]);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(
     0,
     3,
   );
   const currentOffer = useAppSelector((state) => state.currentOffer);
+  const currentReviews = useAppSelector((state) => state.currentReviews);
+  if (currentOffer === undefined) {
+    return <Navigate to={AppRoutes.NotFoundPage} />;
+  }
   return (
     <div className="page">
       <Layout>
@@ -89,7 +96,7 @@ export function OfferPage(): React.JSX.Element {
                         </p>
                       </div>
                     </div>
-                    <Reviews reviews={[]} />
+                    <Reviews reviews={currentReviews} />
                   </div>
                 </div>
                 <Map

@@ -40,7 +40,7 @@ export function OfferCard({
       onMouseLeave={handleMouseLeave}
       className={cn(
         'place-card',
-        { cities__card: isOnMainPage },
+        { 'cities__card': isOnMainPage },
         { 'near-places__card': !isOnMainPage },
       )}
     >
