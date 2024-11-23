@@ -9,6 +9,9 @@ interface ReviewsProps {
 }
 
 export function Reviews({ reviews }: ReviewsProps): React.JSX.Element {
+  const sortedReviews = reviews
+    .toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 10);
   const isAuthorized =
     useAppSelector((state) => state.authorizationStatus) ===
     AuthorizationStatus.Authorized;
@@ -16,7 +19,7 @@ export function Reviews({ reviews }: ReviewsProps): React.JSX.Element {
   return (
     <section className="offer__reviews reviews">
       {reviewsAvailable ? (
-        <ReviewsList reviews={reviews} />
+        <ReviewsList reviews={sortedReviews} />
       ) : (
         <span
           className="reviews__item"

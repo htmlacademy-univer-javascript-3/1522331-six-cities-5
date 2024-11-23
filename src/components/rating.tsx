@@ -14,7 +14,7 @@ export function Rating({
   return (
     <div className={`${usePlace}__rating rating`}>
       <div className={`${usePlace}__stars rating__stars`}>
-        <span style={{ width: `${rating * 20}%` }}></span>
+        <span style={{ width: `${Math.round(rating) * 20}%` }}></span>
         <span className="visually-hidden">Rating</span>
       </div>
       {isInOffer && (

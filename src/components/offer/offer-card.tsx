@@ -4,6 +4,7 @@ import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 import cn from 'classnames';
 import { Rating } from '../rating.tsx';
 import { BookmarkButton } from '../bookmark-button.tsx';
+import { capitalize } from '../../utils/string-utils.ts';
 
 interface PlaceCardProps {
   id: string;
@@ -82,7 +83,7 @@ export function OfferCard({
         <h2 className="place-card__name">
           <Link to={`${AppRoutes.Offer}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );
