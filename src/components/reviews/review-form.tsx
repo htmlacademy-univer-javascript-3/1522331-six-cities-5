@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { store, useAppSelector } from '../../store/store.ts';
 import { postReview } from '../../store/actions.ts';
+import {
+  MAX_COMMENT_LENGTH,
+  MIN_COMMENT_LENGTH,
+} from '../../consts/reviews.ts';
 
 type UserReview = {
   comment?: string;
@@ -29,7 +33,10 @@ export function ReviewForm(): React.JSX.Element {
     );
   };
   const isValid =
-    review?.comment && review?.comment?.length >= 50 && review?.rating;
+    review?.comment &&
+    review?.comment?.length >= MIN_COMMENT_LENGTH &&
+    review?.comment?.length <= MAX_COMMENT_LENGTH &&
+    review?.rating;
   return (
     <form className="reviews__form form">
       <label className="reviews__label form__label" htmlFor="review">
@@ -138,7 +145,15 @@ export function ReviewForm(): React.JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe your stay
-          with at least <b className="reviews__text-amount">50 characters</b>.
+          with at least{' '}
+          <b className="reviews__text-amount">
+            {MIN_COMMENT_LENGTH} characters
+          </b>{' '}
+          and no more than{' '}
+          <b className="reviews__text-amount">
+            {MAX_COMMENT_LENGTH} characters
+          </b>
+          .
         </p>
         <button
           className="reviews__submit form__submit button"
