@@ -10,6 +10,7 @@ import { Nullable } from 'vitest';
 import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
 import { AuthInfo, LoginInfo } from '../dataTypes/user.ts';
 import { saveToken } from '../utils/token-utils.ts';
+import { Review, ReviewShortInfo } from '../dataTypes/review.ts';
 
 export const changeCity = createAction<City>('offers/changeCity');
 
@@ -26,6 +27,10 @@ export const setAuthorizationStatus = createAction<AuthorizationStatus>(
 export const setSorting = createAction<SortOffers>('offers/setSorting');
 
 export const setNearbyOffers = createAction<Offer[]>('offers/setNearbyOffers');
+
+export const setCurrentReviews = createAction<Review[]>(
+  'reviews/setCurrentReviews',
+);
 
 export const fetchOffers = createAsyncThunk<
   void,
@@ -108,4 +113,35 @@ export const logout = createAsyncThunk<
 >('auth/logout', async (_arg, { dispatch, extra: api }) => {
   await api.delete(ApiRoutes.Logout);
   dispatch(setAuthorizationStatus(AuthorizationStatus.Unauthorized));
+});
+
+export const fetchReviews = createAsyncThunk<
+  void,
+  Offer['id'],
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('review/fetchReviews', async (offerId, { dispatch, extra: api }) => {
+  const { data } = await api.get<Review[]>(`${ApiRoutes.Comments}/${offerId}`);
+  dispatch(setCurrentReviews(data));
+});
+
+export const postReview = createAsyncThunk<
+  void,
+  ReviewShortInfo,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('review/fetchReviews', async (info, { dispatch, extra: api }) => {
+  const response = await api.post(`${ApiRoutes.Comments}/${info.offerId}`, {
+    comment: info.comment,
+    rating: info.rating,
+  });
+  if (response.status === 201) {
+    dispatch(fetchReviews(info.offerId));
+  }
 });

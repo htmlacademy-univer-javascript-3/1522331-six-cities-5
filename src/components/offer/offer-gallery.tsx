@@ -10,7 +10,7 @@ export function OfferGallery({
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
-        {imageSources.map((src) => (
+        {imageSources.slice(0, 6).map((src) => (
           <div key={`${src}`} className="offer__image-wrapper">
             <img className="offer__image" src={src} alt="Photo studio" />
           </div>

@@ -24,7 +24,7 @@ export function MainPage(): React.JSX.Element {
     : `${pluralizeAndCombine('place', offers.length)} to stay in ${city.name}`;
   return (
     <div className="page page--gray page--main">
-      <Layout showFooter>
+      <Layout>
         <main className="page__main page__main--index">
           <Helmet>6 cities</Helmet>
           <h1 className="visually-hidden">Cities</h1>
