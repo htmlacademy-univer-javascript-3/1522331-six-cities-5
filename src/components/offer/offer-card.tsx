@@ -40,7 +40,7 @@ export function OfferCard({
       onMouseLeave={handleMouseLeave}
       className={cn(
         'place-card',
-        { 'cities__card': isOnMainPage },
+        { cities__card: isOnMainPage },
         { 'near-places__card': !isOnMainPage },
       )}
     >
@@ -59,7 +59,7 @@ export function OfferCard({
         <Link to={`${AppRoutes.Offer}/${id}`}>
           <img
             className="place-card__image"
-            src={`../../markup/img/${image}`}
+            src={image}
             width="260"
             height="200"
             alt="Place image"
@@ -72,7 +72,11 @@ export function OfferCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton size='small' isFavorite={isFavorite} usagePlace='place-card' />
+          <BookmarkButton
+            size="small"
+            isFavorite={isFavorite}
+            usagePlace="place-card"
+          />
         </div>
         <Rating rating={rating} usePlace="place-card" />
         <h2 className="place-card__name">

@@ -1,15 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { Layout } from '../../components/layout.tsx';
 import { OfferGroup } from '../../components/offer/offer-group.tsx';
-import { Offer } from '../../dataTypes/offer.ts';
+import {useAppSelector} from '../../store/store.ts';
 
-interface FavoritesPageProps {
-  offers: Offer[];
-}
-
-export function FavoritesPage({
-  offers,
-}: FavoritesPageProps): React.JSX.Element {
+export function FavoritesPage(): React.JSX.Element {
+  const offers = useAppSelector((state) => state.offers).filter((offer) => offer.isFavorite);
   return (
     <div className="page">
       <Layout showFooter>

@@ -7,15 +7,10 @@ import { NotFoundPage } from '../pages/not-found-page/not-found-page.tsx';
 import { AuthorizationWrapper } from './authorization-wrapper.tsx';
 import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
 import { HelmetProvider } from 'react-helmet-async';
-import { Offer } from '../dataTypes/offer.ts';
 import { Provider } from 'react-redux';
 import { store } from '../store/store.ts';
 
-interface AppProps {
-  offers: Offer[];
-}
-
-export function App({ offers }: AppProps): React.JSX.Element {
+export function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <HelmetProvider>
@@ -27,7 +22,7 @@ export function App({ offers }: AppProps): React.JSX.Element {
               path={AppRoutes.Favorites}
               element={
                 <AuthorizationWrapper isAuthorized={false}>
-                  <FavoritesPage offers={offers} />
+                  <FavoritesPage />
                 </AuthorizationWrapper>
               }
             />
