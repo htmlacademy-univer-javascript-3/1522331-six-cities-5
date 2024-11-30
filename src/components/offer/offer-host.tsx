@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { User } from '../../dataTypes/user.ts';
 import { getFirstName } from '../../utils/username-utils.ts';
 
@@ -6,7 +6,7 @@ interface OfferHostProps {
   host: User;
 }
 
-export function OfferHost({ host }: OfferHostProps): React.JSX.Element {
+export function OfferHostImpl({ host }: OfferHostProps): React.JSX.Element {
   return (
     <>
       <h2 className="offer__host-title">Meet the host</h2>
@@ -36,3 +36,5 @@ export function OfferHost({ host }: OfferHostProps): React.JSX.Element {
     </>
   );
 }
+
+export const OfferHost = memo(OfferHostImpl);

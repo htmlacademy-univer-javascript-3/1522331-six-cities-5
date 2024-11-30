@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { FormEvent, useState } from 'react';
-import { Layout } from '../../components/layout.tsx';
+import { Layout } from '../../components/Layout/layout.tsx';
 import { LoginInfo } from '../../dataTypes/user.ts';
 import { store } from '../../store/store.ts';
 import { login } from '../../store/async-actions.ts';

@@ -1,39 +1,36 @@
-import { RoomType } from '../../dataTypes/enums/room-type.ts';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 import cn from 'classnames';
 import { Rating } from '../rating.tsx';
 import { BookmarkButton } from '../bookmark-button.tsx';
 import { capitalize } from '../../utils/string-utils.ts';
+import { memo } from 'react';
+import { Offer } from '../../dataTypes/offer.ts';
 
 interface PlaceCardProps {
-  id: string;
-  price: number;
-  type: RoomType;
-  image: string;
-  title: string;
-  rating: number;
-  onMouseEnter?: (id: string) => void;
+  offer: Offer;
+  onMouseEnter?: (offer: Offer) => void;
   onMouseLeave?: () => void;
-  isPremium?: boolean;
-  isFavorite?: boolean;
   isOnMainPage?: boolean;
 }
 
-export function OfferCard({
-  id,
-  price,
-  type,
-  image,
-  title,
-  rating,
+export function OfferCardImpl({
+  offer,
   onMouseEnter,
   onMouseLeave,
-  isPremium,
-  isFavorite,
   isOnMainPage,
 }: PlaceCardProps): React.JSX.Element {
-  const handleMouseEnter = (): void => onMouseEnter?.(id);
+  const {
+    id,
+    price,
+    type,
+    previewImage,
+    title,
+    rating,
+    isPremium,
+    isFavorite,
+  } = offer;
+  const handleMouseEnter = (): void => onMouseEnter?.(offer);
   const handleMouseLeave = (): void => onMouseLeave?.();
   return (
     <article
@@ -60,7 +57,7 @@ export function OfferCard({
         <Link to={`${AppRoutes.Offer}/${id}`}>
           <img
             className="place-card__image"
-            src={image}
+            src={previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -89,3 +86,5 @@ export function OfferCard({
     </article>
   );
 }
+
+export const OfferCard = memo(OfferCardImpl);

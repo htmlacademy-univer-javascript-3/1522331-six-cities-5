@@ -1,6 +1,6 @@
 import { Offer } from '../../dataTypes/offer.ts';
 import { OfferCard } from './offer-card.tsx';
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Nullable } from 'vitest';
 
 interface OffersListProps {
@@ -9,32 +9,32 @@ interface OffersListProps {
   isOnMainPage?: boolean;
 }
 
-export function OffersList({
+export function OffersListImpl({
   offers,
   onActiveOfferChange,
   isOnMainPage,
 }: OffersListProps): React.JSX.Element {
-  const handleActiveOfferChange = (offer: Nullable<Offer>): void => {
-    onActiveOfferChange?.(offer);
-  };
+  const handleMouseEnter = useCallback(
+    (offer: Offer) => onActiveOfferChange?.(offer),
+    [onActiveOfferChange],
+  );
+  const handleMouseLeave = useCallback(
+    () => onActiveOfferChange?.(null),
+    [onActiveOfferChange],
+  );
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
-          id={offer.id}
-          price={offer.price}
-          type={offer.type}
-          image={offer.previewImage}
-          title={offer.title}
-          rating={offer.rating}
-          onMouseEnter={() => handleActiveOfferChange(offer)}
-          onMouseLeave={() => handleActiveOfferChange(null)}
-          isFavorite={offer.isFavorite}
-          isPremium={offer.isPremium}
+          offer={offer}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           isOnMainPage={isOnMainPage}
         />
       ))}
     </div>
   );
 }
+
+export const OffersList = memo(OffersListImpl);

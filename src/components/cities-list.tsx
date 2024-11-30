@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { CITIES } from '../consts/cities.ts';
 import { City } from '../dataTypes/city.ts';
 import { useAppDispatch } from '../store/store.ts';
@@ -8,7 +8,7 @@ interface CitiesListProps {
   activeCityName: string;
 }
 
-export function CitiesList({
+function CitiesListImpl({
   activeCityName,
 }: CitiesListProps): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -37,3 +37,5 @@ export function CitiesList({
     </div>
   );
 }
+
+export const CitiesList = memo(CitiesListImpl);
