@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 import { useAppSelector } from '../../store/store.ts';
-import { AuthorizationStatus } from '../../dataTypes/enums/authorization-status.ts';
 import { memo } from 'react';
 import { UserInfo } from './user-info.tsx';
+import { getIsAuthorized } from '../../store/user/user.selectors.ts';
 
 interface HeaderProps {
   dontShowUserInfo: boolean;
 }
 
 function HeaderImpl({ dontShowUserInfo }: HeaderProps) {
-  const isAuthorized =
-    useAppSelector((state) => state.authorizationStatus) ===
-    AuthorizationStatus.Authorized;
+  const isAuthorized = useAppSelector(getIsAuthorized);
   return (
     <header className="header">
       <div className="container">

@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react';
 import { Offer } from '../../dataTypes/offer.ts';
 import { SortOffers } from '../../dataTypes/sort-offers.ts';
 import { useAppDispatch } from '../../store/store.ts';
-import { setSorting } from '../../store/actions.ts';
+import { setSorting } from '../../store/offers/offers.slice.ts';
 
 const sortingOptions: [string, SortOffers][] = [
   ['Popular', (offers: Offer[]) => offers],

@@ -1,14 +1,21 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
-import { store, useAppSelector } from '../../store/store.ts';
+import { useAppDispatch, useAppSelector } from '../../store/store.ts';
 import { logout } from '../../store/async-actions.ts';
 import { memo } from 'react';
+import { getUserInfo } from '../../store/user/user.selectors.ts';
+import { getFavoritesOffers } from '../../store/offers/offers.selectors.ts';
+import { setFavoriteOffers } from '../../store/offers/offers.slice.ts';
 
 function UserInfoImpl() {
-  const userInfo = useAppSelector((state) => state.userInfo);
-  const favoritesCount = useAppSelector((state) => state.favoritesOffers);
+  const userInfo = useAppSelector(getUserInfo);
+  const favoritesCount = useAppSelector(getFavoritesOffers);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleLogout = () => {
-    store.dispatch(logout());
+    dispatch(logout());
+    dispatch(setFavoriteOffers([]));
+    navigate(AppRoutes.MainPage);
   };
   return (
     <nav className="header__nav">

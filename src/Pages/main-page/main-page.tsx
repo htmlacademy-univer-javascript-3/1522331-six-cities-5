@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Offer } from '../../dataTypes/offer.ts';
 import { OffersList } from '../../components/offer/offers-list.tsx';
 import { Layout } from '../../components/Layout/layout.tsx';
@@ -10,17 +10,15 @@ import { useAppSelector } from '../../store/store.ts';
 import { CitiesList } from '../../components/cities-list.tsx';
 import { pluralizeAndCombine } from '../../utils/string-utils.ts';
 import { OfferSortSelect } from '../../components/offer/offer-sort-select.tsx';
+import {
+  getCity,
+  getSortedOffers,
+} from '../../store/offers/offers.selectors.ts';
 
 export function MainPage(): React.JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
-  const city = useAppSelector((state) => state.city);
-  const allOffers = useAppSelector((state) => state.offers);
-  const sort = useAppSelector((state) => state.sorting);
-  const unsortedOffers = useMemo(
-    () => allOffers.filter((offer) => offer.city.name === city.name),
-    [city, allOffers],
-  );
-  const offers = useMemo(() => sort(unsortedOffers), [sort, unsortedOffers]);
+  const city = useAppSelector(getCity);
+  const offers = useAppSelector(getSortedOffers);
   const offersCountCaption =
     offers.length === 0
       ? 'No places to stay available'

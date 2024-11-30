@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../store/store.ts';
-import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
 import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
+import { getIsAuthorized } from '../store/user/user.selectors.ts';
 
 interface AuthorizationWrapperProps {
   children: React.JSX.Element;
@@ -12,9 +12,7 @@ export function AuthorizationWrapperForAuthorizedOnly({
   children,
   fallbackUrl,
 }: AuthorizationWrapperProps): React.JSX.Element {
-  const isAuthorized =
-    useAppSelector((state) => state.authorizationStatus) ===
-    AuthorizationStatus.Authorized;
+  const isAuthorized = useAppSelector(getIsAuthorized);
   return isAuthorized ? children : <Navigate to={fallbackUrl} />;
 }
 
@@ -22,8 +20,6 @@ export function AuthorizationWrapperForUnauthorizedOnly({
   children,
   fallbackUrl,
 }: AuthorizationWrapperProps): React.JSX.Element {
-  const isUnauthorized =
-    useAppSelector((state) => state.authorizationStatus) ===
-    AuthorizationStatus.Unauthorized;
+  const isUnauthorized = !useAppSelector(getIsAuthorized);
   return isUnauthorized ? children : <Navigate to={fallbackUrl} />;
 }

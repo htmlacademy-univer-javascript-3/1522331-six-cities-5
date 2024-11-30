@@ -2,19 +2,22 @@
 import { ReviewsList } from './reviews-list.tsx';
 import { Review } from '../../dataTypes/review.ts';
 import { useAppSelector } from '../../store/store.ts';
-import { AuthorizationStatus } from '../../dataTypes/enums/authorization-status.ts';
+import { useMemo } from 'react';
+import { getIsAuthorized } from '../../store/user/user.selectors.ts';
 
 interface ReviewsProps {
   reviews: Review[];
 }
 
 export function Reviews({ reviews }: ReviewsProps): React.JSX.Element {
-  const sortedReviews = reviews
-    .toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 10);
-  const isAuthorized =
-    useAppSelector((state) => state.authorizationStatus) ===
-    AuthorizationStatus.Authorized;
+  const sortedReviews = useMemo(
+    () =>
+      reviews.toSorted(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      ),
+    [reviews],
+  );
+  const isAuthorized = useAppSelector(getIsAuthorized);
   const reviewsAvailable = reviews && reviews.length !== 0;
   return (
     <section className="offer__reviews reviews">

@@ -8,15 +8,13 @@ import { AuthInfo, LoginInfo } from '../dataTypes/user.ts';
 import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
 import { dropToken, saveToken } from '../utils/token-utils.ts';
 import { Review, ReviewShortInfo } from '../dataTypes/review.ts';
+import { setFavoriteOffers, setOffers } from './offers/offers.slice.ts';
 import {
-  setAuthorizationStatus,
   setCurrentOffer,
   setCurrentReviews,
-  setFavoriteOffers,
   setNearbyOffers,
-  setOffers,
-  setUserInfo,
-} from './actions.ts';
+} from './current-offer/current-offer.slice.ts';
+import { setAuthorizationStatus, setUserInfo } from './user/user-slice.ts';
 
 export const fetchOffers = createAsyncThunk<
   void,

@@ -1,7 +1,10 @@
 ﻿import React, { memo, useState } from 'react';
-import { store } from '../store/store.ts';
+import { store, useAppSelector } from '../store/store.ts';
 import { bookmarkOffer } from '../store/async-actions.ts';
 import { Offer } from '../dataTypes/offer.ts';
+import { getIsAuthorized } from '../store/user/user.selectors.ts';
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
 
 interface BookmarkButtonProps {
   size: 'big' | 'small';
@@ -16,9 +19,11 @@ function BookmarkButtonImpl({
   isFavorite,
   usagePlace,
 }: BookmarkButtonProps): React.JSX.Element {
+  const navigate = useNavigate();
   const [isFavoriteReactive, setIsFavoriteReactive] = useState<boolean>(
     isFavorite ?? false,
   );
+  const isAuthorized = useAppSelector(getIsAuthorized);
   const sizes = {
     small: {
       width: 18,
@@ -31,13 +36,17 @@ function BookmarkButtonImpl({
   };
   return (
     <button
-      className={`${usagePlace}__bookmark-button ${isFavoriteReactive ? `${usagePlace}__bookmark-button--active` : ''} button`}
+      className={`${usagePlace}__bookmark-button ${isFavoriteReactive && isAuthorized ? `${usagePlace}__bookmark-button--active` : ''} button`}
       type="button"
       onClick={() => {
-        store.dispatch(
-          bookmarkOffer({ offerId: offerId, status: !isFavoriteReactive }),
-        );
-        setIsFavoriteReactive(!isFavoriteReactive);
+        if (isAuthorized) {
+          store.dispatch(
+            bookmarkOffer({ offerId: offerId, status: !isFavoriteReactive }),
+          );
+          setIsFavoriteReactive(!isFavoriteReactive);
+        } else {
+          navigate(AppRoutes.Login);
+        }
       }}
     >
       <svg
@@ -48,7 +57,7 @@ function BookmarkButtonImpl({
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
       <span className="visually-hidden">
-        {isFavoriteReactive ? 'In bookmarks' : 'To bookmarks'}
+        {isFavoriteReactive && isAuthorized ? 'In bookmarks' : 'To bookmarks'}
       </span>
     </button>
   );

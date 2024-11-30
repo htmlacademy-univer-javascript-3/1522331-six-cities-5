@@ -12,7 +12,6 @@ import { Rating } from '../../components/rating.tsx';
 import { OfferGallery } from '../../components/offer/offer-gallery.tsx';
 import { BookmarkButton } from '../../components/bookmark-button.tsx';
 import { store, useAppSelector } from '../../store/store.ts';
-import { setCurrentOffer } from '../../store/actions.ts';
 import { Spinner } from '../../components/spinner/Spinner.tsx';
 import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 import {
@@ -20,6 +19,12 @@ import {
   fetchOffer,
   fetchReviews,
 } from '../../store/async-actions.ts';
+import {
+  getCurrentOffer,
+  getCurrentReviews,
+  getNearbyOffers,
+} from '../../store/current-offer/current-offer.selectors.ts';
+import { setCurrentOffer } from '../../store/current-offer/current-offer.slice.ts';
 
 export function OfferPage(): React.JSX.Element {
   const offerId = useParams().id;
@@ -29,12 +34,9 @@ export function OfferPage(): React.JSX.Element {
     store.dispatch(fetchNearbyOffers(offerId!));
     store.dispatch(fetchReviews(offerId!));
   }, [offerId]);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(
-    0,
-    3,
-  );
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const currentReviews = useAppSelector((state) => state.currentReviews);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const currentReviews = useAppSelector(getCurrentReviews);
   if (currentOffer === undefined) {
     return <Navigate to={AppRoutes.NotFoundPage} />;
   }

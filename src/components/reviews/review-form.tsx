@@ -5,6 +5,7 @@ import {
   MIN_COMMENT_LENGTH,
 } from '../../consts/reviews.ts';
 import { postReview } from '../../store/async-actions.ts';
+import { getCurrentOffer } from '../../store/current-offer/current-offer.selectors.ts';
 
 type UserReview = {
   comment?: string;
@@ -13,7 +14,7 @@ type UserReview = {
 
 export function ReviewForm(): React.JSX.Element {
   const [review, setReview] = useState<UserReview>();
-  const offerId = useAppSelector((state) => state.currentOffer)!.id;
+  const offerId = useAppSelector(getCurrentOffer)!.id;
   const onRatingChange: React.ChangeEventHandler<HTMLInputElement> = (
     event,
   ): void => setReview({ ...review, rating: +event.target.value });

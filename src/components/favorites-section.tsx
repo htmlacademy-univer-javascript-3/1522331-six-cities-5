@@ -1,8 +1,13 @@
 import { OfferGroup } from './offer/offer-group.tsx';
-import { useAppSelector } from '../store/store.ts';
+import { Offer } from '../dataTypes/offer.ts';
 
-export function FavoritesSection(): React.JSX.Element {
-  const offers = useAppSelector((state) => state.favoritesOffers);
+interface FavoritesSectionProps {
+  offers: Offer[];
+}
+
+export function FavoritesSection({
+  offers,
+}: FavoritesSectionProps): React.JSX.Element {
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { CITIES } from '../consts/cities.ts';
 import { City } from '../dataTypes/city.ts';
 import { useAppDispatch } from '../store/store.ts';
-import { changeCity } from '../store/actions.ts';
+import { changeCity } from '../store/offers/offers.slice.ts';
 
 interface CitiesListProps {
   activeCityName: string;
