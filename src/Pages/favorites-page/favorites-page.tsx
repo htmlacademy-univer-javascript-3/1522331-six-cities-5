@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { Layout } from '../../components/layout.tsx';
 import { OfferGroup } from '../../components/offer/offer-group.tsx';
-import {useAppSelector} from '../../store/store.ts';
+import { useAppSelector } from '../../store/store.ts';
 
 export function FavoritesPage(): React.JSX.Element {
-  const offers = useAppSelector((state) => state.offers).filter((offer) => offer.isFavorite);
+  const offers = useAppSelector((state) => state.favoritesOffers);
   return (
     <div className="page">
       <Layout showFooter>
@@ -26,7 +26,6 @@ export function FavoritesPage(): React.JSX.Element {
                     />
                   ))
                   .toArray()}
-                ;
               </ul>
             </section>
           </div>

@@ -4,9 +4,11 @@ import {
   setAuthorizationStatus,
   setCurrentOffer,
   setCurrentReviews,
+  setFavoriteOffers,
   setNearbyOffers,
   setOffers,
   setSorting,
+  setUserInfo,
 } from './actions.ts';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, State } from '../dataTypes/store-types.ts';
@@ -19,6 +21,7 @@ import { Nullable } from 'vitest';
 import { DetailedOffer } from '../dataTypes/detailed-offer.ts';
 import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
 import { Review } from '../dataTypes/review.ts';
+import { AuthInfo } from '../dataTypes/user.ts';
 
 type InitialState = {
   city: City;
@@ -26,7 +29,9 @@ type InitialState = {
   sorting: SortOffers;
   currentOffer: Nullable<DetailedOffer>;
   nearbyOffers: Offer[];
+  favoritesOffers: Offer[];
   currentReviews: Review[];
+  userInfo: AuthInfo | null;
   authorizationStatus: AuthorizationStatus;
 };
 
@@ -36,8 +41,10 @@ const initialState: InitialState = {
   sorting: (offers: Offer[]) => offers,
   currentOffer: null,
   nearbyOffers: [],
+  favoritesOffers: [],
   currentReviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
+  userInfo: null,
 };
 
 export const api = createAPI();
@@ -54,7 +61,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.sorting = action.payload;
     })
     .addCase(setCurrentOffer, (state, action) => {
-      state.currentOffer = action.payload;
+      state.currentOffer = action?.payload;
     })
     .addCase(setNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
@@ -64,6 +71,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentReviews, (state, action) => {
       state.currentReviews = action.payload;
+    })
+    .addCase(setUserInfo, (state, action) => {
+      state.userInfo = action.payload;
+    })
+    .addCase(setFavoriteOffers, (state, action) => {
+      state.favoritesOffers = action.payload;
     });
 });
 
@@ -74,6 +87,7 @@ export const store = configureStore({
       thunk: {
         extraArgument: api,
       },
+      serializableCheck: false,
     }),
 });
 

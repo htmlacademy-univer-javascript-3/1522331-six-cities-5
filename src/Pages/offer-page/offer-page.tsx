@@ -12,14 +12,14 @@ import { Rating } from '../../components/rating.tsx';
 import { OfferGallery } from '../../components/offer/offer-gallery.tsx';
 import { BookmarkButton } from '../../components/bookmark-button.tsx';
 import { store, useAppSelector } from '../../store/store.ts';
+import { setCurrentOffer } from '../../store/actions.ts';
+import { Spinner } from '../../components/spinner/Spinner.tsx';
+import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
 import {
   fetchNearbyOffers,
   fetchOffer,
   fetchReviews,
-  setCurrentOffer,
-} from '../../store/actions.ts';
-import { Spinner } from '../../components/spinner/Spinner.tsx';
-import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
+} from '../../store/async-actions.ts';
 
 export function OfferPage(): React.JSX.Element {
   const offerId = useParams().id;
@@ -62,6 +62,7 @@ export function OfferPage(): React.JSX.Element {
                         size="big"
                         isFavorite={currentOffer.isFavorite}
                         usagePlace="offer"
+                        offerId={currentOffer.id}
                       />
                     </div>
                     <Rating

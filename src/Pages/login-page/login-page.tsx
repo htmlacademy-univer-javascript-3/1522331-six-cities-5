@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import { Layout } from '../../components/layout.tsx';
 import { LoginInfo } from '../../dataTypes/user.ts';
 import { store } from '../../store/store.ts';
-import { login } from '../../store/actions.ts';
+import { login } from '../../store/async-actions.ts';
 
 export function LoginPage(): React.JSX.Element {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
@@ -45,7 +45,8 @@ export function LoginPage(): React.JSX.Element {
                     name="email"
                     placeholder="Email"
                     onChange={(event) =>
-                      setLoginInfo({ ...loginInfo, email: event.target.value })}
+                      setLoginInfo({ ...loginInfo, email: event.target.value })
+                    }
                     required
                   />
                 </div>
@@ -60,7 +61,8 @@ export function LoginPage(): React.JSX.Element {
                       setLoginInfo({
                         ...loginInfo,
                         password: event.target.value,
-                      })}
+                      })
+                    }
                     required
                   />
                 </div>

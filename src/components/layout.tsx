@@ -2,7 +2,7 @@ import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
 import { Link } from 'react-router-dom';
 import { store, useAppSelector } from '../store/store.ts';
 import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
-import { logout } from '../store/actions.ts';
+import { logout } from '../store/async-actions.ts';
 
 interface LayoutProps {
   children: React.JSX.Element;
@@ -18,6 +18,8 @@ export function Layout({
   const isAuthorized =
     useAppSelector((state) => state.authorizationStatus) ===
     AuthorizationStatus.Authorized;
+  const userInfo = useAppSelector((state) => state.userInfo);
+  const favoritesCount = useAppSelector((state) => state.favoritesOffers);
   const handleLogout = () => {
     store.dispatch(logout());
   };
@@ -46,11 +48,21 @@ export function Layout({
                         className="header__nav-link header__nav-link--profile"
                         to={AppRoutes.Favorites}
                       >
-                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                          {userInfo?.avatarUrl && (
+                            <img
+                              className="user__avatar"
+                              src={userInfo.avatarUrl}
+                              alt="user avatar"
+                            />
+                          )}
+                        </div>
                         <span className="header__user-name user__name">
-                          Oliver.conner@gmail.com
+                          {userInfo?.email}
                         </span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">
+                          {favoritesCount.length}
+                        </span>
                       </Link>
                     </li>
                     <li className="header__nav-item">
@@ -81,7 +93,7 @@ export function Layout({
       {children}
       {showFooter && (
         <footer className="footer container">
-          <a className="footer__logo-link" href="main.html">
+          <Link className="footer__logo-link" to={AppRoutes.MainPage}>
             <img
               className="footer__logo"
               src="img/logo.svg"
@@ -89,7 +101,7 @@ export function Layout({
               width="64"
               height="33"
             />
-          </a>
+          </Link>
         </footer>
       )}
     </>

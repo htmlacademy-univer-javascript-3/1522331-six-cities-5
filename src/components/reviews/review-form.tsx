@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { store, useAppSelector } from '../../store/store.ts';
-import { postReview } from '../../store/actions.ts';
 import {
   MAX_COMMENT_LENGTH,
   MIN_COMMENT_LENGTH,
 } from '../../consts/reviews.ts';
+import { postReview } from '../../store/async-actions.ts';
 
 type UserReview = {
   comment?: string;
@@ -31,6 +31,7 @@ export function ReviewForm(): React.JSX.Element {
         comment: review?.comment || '',
       }),
     );
+    setReview({ comment: '', rating: undefined });
   };
   const isValid =
     review?.comment &&
@@ -49,6 +50,7 @@ export function ReviewForm(): React.JSX.Element {
           value="5"
           id="5-stars"
           type="radio"
+          checked={review?.rating === 5}
           onChange={onRatingChange}
         />
         <label
@@ -67,6 +69,7 @@ export function ReviewForm(): React.JSX.Element {
           value="4"
           id="4-stars"
           type="radio"
+          checked={review?.rating === 4}
           onChange={onRatingChange}
         />
         <label
@@ -85,6 +88,7 @@ export function ReviewForm(): React.JSX.Element {
           value="3"
           id="3-stars"
           type="radio"
+          checked={review?.rating === 3}
           onChange={onRatingChange}
         />
         <label
@@ -103,6 +107,7 @@ export function ReviewForm(): React.JSX.Element {
           value="2"
           id="2-stars"
           type="radio"
+          checked={review?.rating === 2}
           onChange={onRatingChange}
         />
         <label
@@ -121,6 +126,7 @@ export function ReviewForm(): React.JSX.Element {
           value="1"
           id="1-star"
           type="radio"
+          checked={review?.rating === 1}
           onChange={onRatingChange}
         />
         <label
@@ -138,9 +144,9 @@ export function ReviewForm(): React.JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        value={review?.comment || ''}
         onChange={onCommentChange}
-      >
-      </textarea>
+      ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}

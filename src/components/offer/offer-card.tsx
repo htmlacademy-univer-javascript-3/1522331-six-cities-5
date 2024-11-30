@@ -41,7 +41,7 @@ export function OfferCard({
       onMouseLeave={handleMouseLeave}
       className={cn(
         'place-card',
-        { 'cities__card': isOnMainPage },
+        { cities__card: isOnMainPage },
         { 'near-places__card': !isOnMainPage },
       )}
     >
@@ -77,6 +77,7 @@ export function OfferCard({
             size="small"
             isFavorite={isFavorite}
             usagePlace="place-card"
+            offerId={id}
           />
         </div>
         <Rating rating={rating} usePlace="place-card" />

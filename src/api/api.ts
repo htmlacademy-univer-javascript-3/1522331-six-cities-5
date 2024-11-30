@@ -1,20 +1,8 @@
-﻿import axios, {
-  AxiosError,
-  AxiosInstance,
-  InternalAxiosRequestConfig,
-} from 'axios';
+﻿import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { getToken } from '../utils/token-utils.ts';
-import { store } from '../store/store.ts';
-import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
-import { setAuthorizationStatus, setCurrentOffer } from '../store/actions.ts';
 
 const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
-
-type DetailMessageType = {
-  errorType: string;
-  message: string;
-};
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -31,21 +19,6 @@ export const createAPI = (): AxiosInstance => {
 
     return config;
   });
-
-  api.interceptors.response.use(
-    (response) => response,
-    (error: AxiosError<DetailMessageType>) => {
-      if (error.response && error.response.status === 401) {
-        store.dispatch(
-          setAuthorizationStatus(AuthorizationStatus.Unauthorized),
-        );
-      }
-      if (error.response && error.response.status === 404) {
-        store.dispatch(setCurrentOffer(undefined));
-      }
-      throw error;
-    },
-  );
 
   return api;
 };
