@@ -16,3 +16,5 @@ export const getCurrentReviews = createSelector(
   [(state: State) => state[NameSpaces.CurrentOffer].currentReviews],
   (reviews: Review[]) => reviews.slice(0, MAX_REVIEWS_COUNT),
 );
+export const getReviewPostingStatus = (state: State) =>
+  state[NameSpaces.CurrentOffer].reviewPostingStatus;

@@ -1,11 +1,17 @@
-import { useState } from 'react';
-import { store, useAppSelector } from '../../store/store.ts';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/store.ts';
 import {
   MAX_COMMENT_LENGTH,
   MIN_COMMENT_LENGTH,
 } from '../../consts/reviews.ts';
 import { postReview } from '../../store/async-actions.ts';
-import { getCurrentOffer } from '../../store/current-offer/current-offer.selectors.ts';
+import {
+  getCurrentOffer,
+  getReviewPostingStatus,
+} from '../../store/current-offer/current-offer.selectors.ts';
+import { ReviewStatus } from '../../dataTypes/enums/review-status.ts';
+import { setReviewPostingStatus } from '../../store/current-offer/current-offer.slice.ts';
+import { Spinner } from '../spinner/Spinner.tsx';
 
 type UserReview = {
   comment?: string;
@@ -14,7 +20,14 @@ type UserReview = {
 
 export function ReviewForm(): React.JSX.Element {
   const [review, setReview] = useState<UserReview>();
+  const dispatch = useAppDispatch();
   const offerId = useAppSelector(getCurrentOffer)!.id;
+  const reviewPostingStatus = useAppSelector(getReviewPostingStatus);
+  useEffect(() => {
+    if (reviewPostingStatus === ReviewStatus.Success) {
+      setReview({ comment: '', rating: undefined });
+    }
+  }, [reviewPostingStatus]);
   const onRatingChange: React.ChangeEventHandler<HTMLInputElement> = (
     event,
   ): void => setReview({ ...review, rating: +event.target.value });
@@ -25,14 +38,14 @@ export function ReviewForm(): React.JSX.Element {
     event,
   ): void => {
     event.preventDefault();
-    store.dispatch(
+    dispatch(
       postReview({
         offerId: offerId,
         rating: review?.rating || 5,
         comment: review?.comment || '',
       }),
     );
-    setReview({ comment: '', rating: undefined });
+    dispatch(setReviewPostingStatus(ReviewStatus.Pending));
   };
   const isValid =
     review?.comment &&
@@ -53,6 +66,7 @@ export function ReviewForm(): React.JSX.Element {
           type="radio"
           checked={review?.rating === 5}
           onChange={onRatingChange}
+          disabled={reviewPostingStatus === ReviewStatus.Pending}
         />
         <label
           htmlFor="5-stars"
@@ -72,6 +86,7 @@ export function ReviewForm(): React.JSX.Element {
           type="radio"
           checked={review?.rating === 4}
           onChange={onRatingChange}
+          disabled={reviewPostingStatus === ReviewStatus.Pending}
         />
         <label
           htmlFor="4-stars"
@@ -91,6 +106,7 @@ export function ReviewForm(): React.JSX.Element {
           type="radio"
           checked={review?.rating === 3}
           onChange={onRatingChange}
+          disabled={reviewPostingStatus === ReviewStatus.Pending}
         />
         <label
           htmlFor="3-stars"
@@ -110,6 +126,7 @@ export function ReviewForm(): React.JSX.Element {
           type="radio"
           checked={review?.rating === 2}
           onChange={onRatingChange}
+          disabled={reviewPostingStatus === ReviewStatus.Pending}
         />
         <label
           htmlFor="2-stars"
@@ -129,6 +146,7 @@ export function ReviewForm(): React.JSX.Element {
           type="radio"
           checked={review?.rating === 1}
           onChange={onRatingChange}
+          disabled={reviewPostingStatus === ReviewStatus.Pending}
         />
         <label
           htmlFor="1-star"
@@ -147,6 +165,7 @@ export function ReviewForm(): React.JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review?.comment || ''}
         onChange={onCommentChange}
+        disabled={reviewPostingStatus === ReviewStatus.Pending}
       ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -166,9 +185,13 @@ export function ReviewForm(): React.JSX.Element {
           className="reviews__submit form__submit button"
           type="submit"
           onClick={handleSubmit}
-          disabled={!isValid}
+          disabled={!isValid || reviewPostingStatus === ReviewStatus.Pending}
         >
-          Submit
+          {reviewPostingStatus === ReviewStatus.Pending ? (
+            <Spinner small />
+          ) : (
+            'Submit'
+          )}
         </button>
       </div>
     </form>

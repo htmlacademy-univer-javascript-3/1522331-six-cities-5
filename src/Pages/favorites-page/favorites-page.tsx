@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Layout } from '../../components/Layout/layout.tsx';
+import { Layout } from '../../components/layout/layout.tsx';
 import { FavoritesSection } from '../../components/favorites-section.tsx';
 import { useAppSelector } from '../../store/store.ts';
 import { getFavoritesOffers } from '../../store/offers/offers.selectors.ts';
