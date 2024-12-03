@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from 'react';
 import { Offer } from '../../dataTypes/offer.ts';
 import { OffersList } from '../../components/offer/offers-list.tsx';
-import { Layout } from '../../components/Layout/layout.tsx';
+import { Layout } from '../../components/layout/layout.tsx';
 import { Helmet } from 'react-helmet-async';
 import { Nullable } from 'vitest';
 import { Map } from '../../components/map/map.tsx';
@@ -55,9 +55,9 @@ export function MainPage(): React.JSX.Element {
                     selectedPoint={
                       activeOffer
                         ? {
-                            location: activeOffer?.location,
-                            id: activeOffer?.id,
-                          }
+                          location: activeOffer?.location,
+                          id: activeOffer?.id,
+                        }
                         : undefined
                     }
                     isOnMainPage

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Layout } from '../../components/Layout/layout.tsx';
+import { Layout } from '../../components/layout/layout.tsx';
 import { OffersList } from '../../components/offer/offers-list.tsx';
 import { Reviews } from '../../components/reviews/reviews.tsx';
 import { Map } from '../../components/map/map.tsx';

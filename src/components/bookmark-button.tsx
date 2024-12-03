@@ -1,4 +1,4 @@
-﻿import React, { memo, useState } from 'react';
+﻿import React, { useState } from 'react';
 import { store, useAppSelector } from '../store/store.ts';
 import { bookmarkOffer } from '../store/async-actions.ts';
 import { Offer } from '../dataTypes/offer.ts';
@@ -13,7 +13,7 @@ interface BookmarkButtonProps {
   offerId: Offer['id'];
 }
 
-function BookmarkButtonImpl({
+export function BookmarkButton({
   size,
   offerId,
   isFavorite,
@@ -62,5 +62,3 @@ function BookmarkButtonImpl({
     </button>
   );
 }
-
-export const BookmarkButton = memo(BookmarkButtonImpl);

@@ -13,6 +13,11 @@
   align-items: center;
 }
 
+.spinner_small {
+  width: 20px;
+  height: 20px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
