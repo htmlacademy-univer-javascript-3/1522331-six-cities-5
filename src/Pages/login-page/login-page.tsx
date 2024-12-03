@@ -1,18 +1,20 @@
 import { Helmet } from 'react-helmet-async';
 import { FormEvent, useState } from 'react';
-import { Layout } from '../../components/layout.tsx';
+import { Layout } from '../../components/Layout/layout.tsx';
 import { LoginInfo } from '../../dataTypes/user.ts';
-import { store } from '../../store/store.ts';
-import { login } from '../../store/actions.ts';
+import { useAppDispatch } from '../../store/store.ts';
+import { login } from '../../store/async-actions.ts';
+import { LoginPageRightSection } from './login-page-right-section.tsx';
 
 export function LoginPage(): React.JSX.Element {
+  const dispatch = useAppDispatch();
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
     email: '',
     password: '',
   });
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    store.dispatch(login(loginInfo));
+    dispatch(login(loginInfo));
   };
 
   const validateEmail = (email: string) => {
@@ -45,7 +47,8 @@ export function LoginPage(): React.JSX.Element {
                     name="email"
                     placeholder="Email"
                     onChange={(event) =>
-                      setLoginInfo({ ...loginInfo, email: event.target.value })}
+                      setLoginInfo({ ...loginInfo, email: event.target.value })
+                    }
                     required
                   />
                 </div>
@@ -60,7 +63,8 @@ export function LoginPage(): React.JSX.Element {
                       setLoginInfo({
                         ...loginInfo,
                         password: event.target.value,
-                      })}
+                      })
+                    }
                     required
                   />
                 </div>
@@ -74,13 +78,7 @@ export function LoginPage(): React.JSX.Element {
                 </button>
               </form>
             </section>
-            <section className="locations locations--login locations--current">
-              <div className="locations__item">
-                <a className="locations__item-link" href="#">
-                  <span>Amsterdam</span>
-                </a>
-              </div>
-            </section>
+            <LoginPageRightSection />
           </div>
         </main>
       </Layout>

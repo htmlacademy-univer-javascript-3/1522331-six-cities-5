@@ -3,4 +3,5 @@
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  Favorites = '/favorite',
 }

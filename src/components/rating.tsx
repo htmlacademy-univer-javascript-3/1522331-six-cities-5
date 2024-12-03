@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface RatingProps {
   rating: number;
@@ -6,7 +6,7 @@ interface RatingProps {
   showRatingValue?: boolean;
 }
 
-export function Rating({
+function RatingImpl({
   rating,
   showRatingValue,
   usePlace,
@@ -23,3 +23,5 @@ export function Rating({
     </div>
   );
 }
+
+export const Rating = memo(RatingImpl);
