@@ -55,9 +55,9 @@ export function MainPage(): React.JSX.Element {
                     selectedPoint={
                       activeOffer
                         ? {
-                            location: activeOffer?.location,
-                            id: activeOffer?.id,
-                          }
+                          location: activeOffer?.location,
+                          id: activeOffer?.id,
+                        }
                         : undefined
                     }
                     isOnMainPage
