@@ -4,6 +4,7 @@ import { Review } from '../../dataTypes/review.ts';
 import { useAppSelector } from '../../store/store.ts';
 import { useMemo } from 'react';
 import { getIsAuthorized } from '../../store/user/user.selectors.ts';
+import { MAX_REVIEWS_COUNT } from '../../consts/reviews.ts';
 
 interface ReviewsProps {
   reviews: Review[];
@@ -12,9 +13,11 @@ interface ReviewsProps {
 export function Reviews({ reviews }: ReviewsProps): React.JSX.Element {
   const sortedReviews = useMemo(
     () =>
-      reviews.toSorted(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-      ),
+      reviews
+        .toSorted(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        )
+        .slice(0, MAX_REVIEWS_COUNT),
     [reviews],
   );
   const isAuthorized = useAppSelector(getIsAuthorized);
