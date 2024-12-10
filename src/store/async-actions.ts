@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../dataTypes/store-types.ts';
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { Offer } from '../dataTypes/offer.ts';
-import { ApiRoutes } from '../dataTypes/enums/api-routes.ts';
+import { ApiRoute } from '../dataTypes/enums/api-route.ts';
 import { DetailedOffer } from '../dataTypes/detailed-offer.ts';
 import { AuthInfo, LoginInfo } from '../dataTypes/user.ts';
 import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
@@ -29,7 +29,7 @@ export const fetchOffers = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
-  const { data } = await api.get<Offer[]>(ApiRoutes.Offers);
+  const { data } = await api.get<Offer[]>(ApiRoute.Offers);
   dispatch(setOffers(data));
 });
 
@@ -43,7 +43,7 @@ export const fetchOffer = createAsyncThunk<
   }
 >('data/fetchOffer', async (id, { dispatch, extra: api }) => {
   try {
-    const { data } = await api.get<DetailedOffer>(`${ApiRoutes.Offers}/${id}`);
+    const { data } = await api.get<DetailedOffer>(`${ApiRoute.Offers}/${id}`);
     dispatch(setCurrentOffer(data));
   } catch (err) {
     const error = err as Error | AxiosError;
@@ -66,7 +66,7 @@ export const fetchNearbyOffers = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchNearbyOffers', async (id, { dispatch, extra: api }) => {
-  const { data } = await api.get<Offer[]>(`${ApiRoutes.Offers}/${id}/nearby`);
+  const { data } = await api.get<Offer[]>(`${ApiRoute.Offers}/${id}/nearby`);
   dispatch(setNearbyOffers(data));
 });
 
@@ -79,7 +79,7 @@ export const fetchReviews = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('review/fetchReviews', async (offerId, { dispatch, extra: api }) => {
-  const { data } = await api.get<Review[]>(`${ApiRoutes.Comments}/${offerId}`);
+  const { data } = await api.get<Review[]>(`${ApiRoute.Comments}/${offerId}`);
   dispatch(setCurrentReviews(data));
 });
 
@@ -93,7 +93,7 @@ export const postReview = createAsyncThunk<
   }
 >('review/postReview', async (info, { dispatch, extra: api }) => {
   try {
-    const response = await api.post(`${ApiRoutes.Comments}/${info.offerId}`, {
+    const response = await api.post(`${ApiRoute.Comments}/${info.offerId}`, {
       comment: info.comment,
       rating: info.rating,
     });
@@ -148,7 +148,7 @@ export const fetchFavoriteOffers = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('offers/fetchFavorites', async (_arg, { dispatch, extra: api }) => {
-  const response = await api.get<Offer[]>(ApiRoutes.Favorites);
+  const response = await api.get<Offer[]>(ApiRoute.Favorites);
   if (response.status === 200) {
     dispatch(setFavoriteOffers(response.data));
   }
@@ -164,7 +164,7 @@ export const bookmarkOffer = createAsyncThunk<
   }
 >('review/fetchReviews', async (info, { dispatch, extra: api }) => {
   const response = await api.post(
-    `${ApiRoutes.Favorites}/${info.offerId}/${+info.status}`,
+    `${ApiRoute.Favorites}/${info.offerId}/${+info.status}`,
   );
   if (response.status === 201 || response.status === 200) {
     dispatch(fetchFavoriteOffers());
@@ -181,7 +181,7 @@ export const login = createAsyncThunk<
   }
 >('auth/login', async (loginInfo, { dispatch, extra: api }) => {
   try {
-    const response = await api.post<AuthInfo>(ApiRoutes.Login, loginInfo);
+    const response = await api.post<AuthInfo>(ApiRoute.Login, loginInfo);
     if (response.status === 200 || response.status === 201) {
       dispatch(setAuthorizationStatus(AuthorizationStatus.Authorized));
       saveToken(response.data.token);
@@ -210,7 +210,7 @@ export const checkAuthorization = createAsyncThunk<
   }
 >('auth/checkAuthorization', async (_arg, { dispatch, extra: api }) => {
   try {
-    const response = await api.get<AuthInfo>(ApiRoutes.Login);
+    const response = await api.get<AuthInfo>(ApiRoute.Login);
     if (response.status === 200 || response.status === 201) {
       dispatch(setAuthorizationStatus(AuthorizationStatus.Authorized));
       dispatch(setUserInfo(response.data));
@@ -237,6 +237,6 @@ export const logout = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('auth/logout', async (_arg, { dispatch, extra: api }) => {
-  await api.delete(ApiRoutes.Logout);
+  await api.delete(ApiRoute.Logout);
   dispatch(setAuthorizationStatus(AuthorizationStatus.Unauthorized));
 });

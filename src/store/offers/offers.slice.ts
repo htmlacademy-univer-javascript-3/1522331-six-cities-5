@@ -3,7 +3,7 @@ import { Offer } from '../../dataTypes/offer.ts';
 import { City } from '../../dataTypes/city.ts';
 import { SortOffers } from '../../dataTypes/sort-offers.ts';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpaces } from '../../dataTypes/enums/name-spaces.ts';
+import { NameSpace } from '../../dataTypes/enums/name-space.ts';
 type OffersInitialState = {
   city: City;
   offers: Offer[];
@@ -19,7 +19,7 @@ const initialState: OffersInitialState = {
 };
 
 export const offersSlice = createSlice({
-  name: NameSpaces.Offers,
+  name: NameSpace.Offers,
   initialState,
   reducers: {
     changeCity: (state, action: PayloadAction<City>) => {

@@ -1,22 +1,24 @@
 import { State } from '../../dataTypes/store-types.ts';
-import { NameSpaces } from '../../dataTypes/enums/name-spaces.ts';
+import { NameSpace } from '../../dataTypes/enums/name-space.ts';
 import { MAX_NEARBY_OFFERS } from '../../consts/offers.ts';
 import { createSelector } from '@reduxjs/toolkit';
 import { Offer } from '../../dataTypes/offer.ts';
 import { Review } from '../../dataTypes/review.ts';
 
-export const getCurrentOffer = (state: State) =>
-  state[NameSpaces.CurrentOffer].currentOffer;
+type CurrentOfferState = Pick<State, NameSpace.CurrentOffer>;
+
+export const getCurrentOffer = (state: CurrentOfferState) =>
+  state[NameSpace.CurrentOffer].currentOffer;
 export const getNearbyOffers = createSelector(
-  [(state: State) => state[NameSpaces.CurrentOffer].nearbyOffers],
+  [(state: CurrentOfferState) => state[NameSpace.CurrentOffer].nearbyOffers],
   (offers: Offer[]) => offers.slice(0, MAX_NEARBY_OFFERS),
 );
-export const getCurrentReviews = (state: State) =>
-  state[NameSpaces.CurrentOffer].currentReviews;
+export const getCurrentReviews = (state: CurrentOfferState) =>
+  state[NameSpace.CurrentOffer].currentReviews;
 
 export const getReviewsCount = createSelector(
-  [(state: State) => state[NameSpaces.CurrentOffer].currentReviews],
+  [(state: CurrentOfferState) => state[NameSpace.CurrentOffer].currentReviews],
   (reviews: Review[]) => reviews.length,
 );
-export const getReviewPostingStatus = (state: State) =>
-  state[NameSpaces.CurrentOffer].reviewPostingStatus;
+export const getReviewPostingStatus = (state: CurrentOfferState) =>
+  state[NameSpace.CurrentOffer].reviewPostingStatus;

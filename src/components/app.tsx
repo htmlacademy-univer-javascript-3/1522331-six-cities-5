@@ -8,7 +8,7 @@ import {
   AuthorizationWrapperForAuthorizedOnly,
   AuthorizationWrapperForUnauthorizedOnly,
 } from './authorization-wrapper.tsx';
-import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../dataTypes/enums/app-route.ts';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { store } from '../store/store.ts';
@@ -19,28 +19,28 @@ export function App(): React.JSX.Element {
       <HelmetProvider>
         <BrowserRouter>
           <Routes>
-            <Route path={AppRoutes.MainPage} element={<MainPage />} />
+            <Route path={AppRoute.MainPage} element={<MainPage />} />
             <Route
-              path={AppRoutes.Login}
+              path={AppRoute.Login}
               element={
                 <AuthorizationWrapperForUnauthorizedOnly
-                  fallbackUrl={AppRoutes.MainPage}
+                  fallbackUrl={AppRoute.MainPage}
                 >
                   <LoginPage />
                 </AuthorizationWrapperForUnauthorizedOnly>
               }
             />
             <Route
-              path={AppRoutes.Favorites}
+              path={AppRoute.Favorites}
               element={
                 <AuthorizationWrapperForAuthorizedOnly
-                  fallbackUrl={AppRoutes.Login}
+                  fallbackUrl={AppRoute.Login}
                 >
                   <FavoritesPage />
                 </AuthorizationWrapperForAuthorizedOnly>
               }
             />
-            <Route path={`${AppRoutes.Offer}/:id`} element={<OfferPage />} />
+            <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

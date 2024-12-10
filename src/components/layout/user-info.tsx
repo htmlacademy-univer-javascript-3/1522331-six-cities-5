@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../../dataTypes/enums/app-route.ts';
 import { useAppDispatch, useAppSelector } from '../../store/store.ts';
 import { logout } from '../../store/async-actions.ts';
 import { memo } from 'react';
@@ -15,7 +15,7 @@ function UserInfoImpl() {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(setFavoriteOffers([]));
-    navigate(AppRoutes.MainPage);
+    navigate(AppRoute.MainPage);
   };
   return (
     <nav className="header__nav">
@@ -23,7 +23,7 @@ function UserInfoImpl() {
         <li className="header__nav-item user">
           <Link
             className="header__nav-link header__nav-link--profile"
-            to={AppRoutes.Favorites}
+            to={AppRoute.Favorites}
           >
             <div className="header__avatar-wrapper user__avatar-wrapper">
               {userInfo?.avatarUrl && (

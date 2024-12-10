@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../../dataTypes/enums/app-route.ts';
 import cn from 'classnames';
 import { Rating } from '../rating.tsx';
 import { BookmarkButton } from '../bookmark-button.tsx';
@@ -38,7 +38,7 @@ export function OfferCardImpl({
       onMouseLeave={handleMouseLeave}
       className={cn(
         'place-card',
-        { 'cities__card': isOnMainPage },
+        { cities__card: isOnMainPage },
         { 'near-places__card': !isOnMainPage },
       )}
     >
@@ -54,7 +54,7 @@ export function OfferCardImpl({
           { 'near-places__image-wrapper': !isOnMainPage },
         )}
       >
-        <Link to={`${AppRoutes.Offer}/${id}`}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -79,7 +79,7 @@ export function OfferCardImpl({
         </div>
         <Rating rating={rating} usePlace="place-card" />
         <h2 className="place-card__name">
-          <Link to={`${AppRoutes.Offer}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalize(type)}</p>
       </div>

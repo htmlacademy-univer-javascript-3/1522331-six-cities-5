@@ -24,9 +24,13 @@ export function ReviewForm(): React.JSX.Element {
   const offerId = useAppSelector(getCurrentOffer)!.id;
   const reviewPostingStatus = useAppSelector(getReviewPostingStatus);
   useEffect(() => {
-    if (reviewPostingStatus === ReviewStatus.Success) {
+    let isMounted = true;
+    if (isMounted && reviewPostingStatus === ReviewStatus.Success) {
       setReview({ comment: '', rating: undefined });
     }
+    return () => {
+      isMounted = false;
+    };
   }, [reviewPostingStatus]);
   const onRatingChange: React.ChangeEventHandler<HTMLInputElement> = (
     event,
@@ -166,8 +170,7 @@ export function ReviewForm(): React.JSX.Element {
         value={review?.comment || ''}
         onChange={onCommentChange}
         disabled={reviewPostingStatus === ReviewStatus.Pending}
-      >
-      </textarea>
+      ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}
