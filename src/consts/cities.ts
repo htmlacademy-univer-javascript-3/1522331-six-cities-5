@@ -61,4 +61,4 @@ export const CITIES: City[] = [
   AMSTERDAM,
   HAMBURG,
   DUSSELDORF,
-];
+] as const;

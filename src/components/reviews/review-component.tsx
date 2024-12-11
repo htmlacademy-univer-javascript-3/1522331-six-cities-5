@@ -1,5 +1,6 @@
 ﻿import { getFirstName } from '../../utils/username-utils.ts';
 import { Rating } from '../rating.tsx';
+import { formatDate } from '../../utils/date-utils.ts';
 
 interface ReviewProps {
   comment: string;
@@ -34,7 +35,7 @@ export function ReviewComponent({
         <Rating rating={rating} usePlace="reviews" />
         <p className="reviews__text">{comment}</p>
         <time className="reviews__time" dateTime={date.toDateString()}>
-          {date.toLocaleDateString('en-US', {})}
+          {formatDate(date)}
         </time>
       </div>
     </li>
