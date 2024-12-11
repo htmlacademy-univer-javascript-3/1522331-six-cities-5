@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpaces } from '../../dataTypes/enums/name-spaces.ts';
+import { NameSpace } from '../../dataTypes/enums/name-space.ts';
 import { AuthorizationStatus } from '../../dataTypes/enums/authorization-status.ts';
 import { AuthInfo } from '../../dataTypes/user.ts';
 
@@ -14,7 +14,7 @@ const initialState: UserInitialState = {
 };
 
 export const userSlice = createSlice({
-  name: NameSpaces.User,
+  name: NameSpace.User,
   initialState,
   reducers: {
     setAuthorizationStatus: (

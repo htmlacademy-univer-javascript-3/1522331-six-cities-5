@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../../dataTypes/enums/app-route.ts';
 import { memo } from 'react';
 
 function FooterImpl() {
   return (
     <footer className="footer container">
-      <Link className="footer__logo-link" to={AppRoutes.MainPage}>
+      <Link className="footer__logo-link" to={AppRoute.MainPage}>
         <img
           className="footer__logo"
           src="img/logo.svg"

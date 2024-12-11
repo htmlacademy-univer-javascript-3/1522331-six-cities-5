@@ -1,10 +1,10 @@
 import { Offer } from '../../dataTypes/offer.ts';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpaces } from '../../dataTypes/enums/name-spaces.ts';
-import { Nullable } from 'vitest';
+import { NameSpace } from '../../dataTypes/enums/name-space.ts';
 import { Review } from '../../dataTypes/review.ts';
 import { DetailedOffer } from '../../dataTypes/detailed-offer.ts';
 import { ReviewStatus } from '../../dataTypes/enums/review-status.ts';
+import { Nullable } from 'vitest';
 
 type CurrentOfferInitialState = {
   currentOffer: Nullable<DetailedOffer>;
@@ -21,7 +21,7 @@ const initialState: CurrentOfferInitialState = {
 };
 
 export const currentOfferSlice = createSlice({
-  name: NameSpaces.CurrentOffer,
+  name: NameSpace.CurrentOffer,
   initialState,
   reducers: {
     setCurrentOffer: (

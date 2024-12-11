@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../../dataTypes/enums/app-route.ts';
 import { useAppSelector } from '../../store/store.ts';
 import { memo } from 'react';
 import { UserInfo } from './user-info.tsx';
@@ -16,7 +16,7 @@ function HeaderImpl({ dontShowUserInfo }: HeaderProps) {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className="header__logo-link" to={AppRoutes.MainPage}>
+            <Link className="header__logo-link" to={AppRoute.MainPage}>
               <img
                 className="header__logo"
                 src="img/logo.svg"
@@ -35,7 +35,7 @@ function HeaderImpl({ dontShowUserInfo }: HeaderProps) {
                   <li className="header__nav-item user">
                     <Link
                       className="header__nav-link header__nav-link--profile"
-                      to={AppRoutes.Login}
+                      to={AppRoute.Login}
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       <span className="header__login">Sign in</span>

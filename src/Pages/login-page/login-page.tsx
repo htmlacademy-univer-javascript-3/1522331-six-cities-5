@@ -25,7 +25,6 @@ export function LoginPage(): React.JSX.Element {
     loginInfo.email &&
     validateEmail(loginInfo.email) &&
     loginInfo.password &&
-    loginInfo.password.length > 3 &&
     loginInfo.password.match(/[a-zA-z]/g) &&
     loginInfo.password.match(/[0-9]/g);
   return (

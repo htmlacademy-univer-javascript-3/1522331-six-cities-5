@@ -1,4 +1,4 @@
-export enum NameSpaces {
+export enum NameSpace {
   Offers = 'Offers',
   CurrentOffer = 'CurrentOffer',
   User = 'User',

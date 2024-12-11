@@ -4,7 +4,7 @@ import { bookmarkOffer } from '../store/async-actions.ts';
 import { Offer } from '../dataTypes/offer.ts';
 import { getIsAuthorized } from '../store/user/user.selectors.ts';
 import { useNavigate } from 'react-router-dom';
-import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../dataTypes/enums/app-route.ts';
 
 interface BookmarkButtonProps {
   size: 'big' | 'small';
@@ -45,7 +45,7 @@ export function BookmarkButton({
           );
           setIsFavoriteReactive(!isFavoriteReactive);
         } else {
-          navigate(AppRoutes.Login);
+          navigate(AppRoute.Login);
         }
       }}
     >

@@ -13,7 +13,7 @@ import { OfferGallery } from '../../components/offer/offer-gallery.tsx';
 import { BookmarkButton } from '../../components/bookmark-button.tsx';
 import { store, useAppSelector } from '../../store/store.ts';
 import { Spinner } from '../../components/spinner/Spinner.tsx';
-import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../../dataTypes/enums/app-route.ts';
 import {
   fetchNearbyOffers,
   fetchOffer,
@@ -38,7 +38,7 @@ export function OfferPage(): React.JSX.Element {
   const currentOffer = useAppSelector(getCurrentOffer);
   const currentReviews = useAppSelector(getCurrentReviews);
   if (currentOffer === undefined) {
-    return <Navigate to={AppRoutes.NotFoundPage} />;
+    return <Navigate to={AppRoute.NotFoundPage} />;
   }
   return (
     <div className="page">

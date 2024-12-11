@@ -1,11 +1,11 @@
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../store/store.ts';
-import { AppRoutes } from '../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../dataTypes/enums/app-route.ts';
 import { getIsAuthorized } from '../store/user/user.selectors.ts';
 
 interface AuthorizationWrapperProps {
   children: React.JSX.Element;
-  fallbackUrl: AppRoutes;
+  fallbackUrl: AppRoute;
 }
 
 export function AuthorizationWrapperForAuthorizedOnly({

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../dataTypes/enums/app-routes.ts';
+import { AppRoute } from '../../dataTypes/enums/app-route.ts';
 import { changeCity } from '../../store/offers/offers.slice.ts';
 import { CITIES } from '../../consts/cities.ts';
 import { useAppDispatch } from '../../store/store.ts';
@@ -13,7 +13,7 @@ function LoginPageRightSectionImpl() {
       <div className="locations__item">
         <Link
           className="locations__item-link"
-          to={AppRoutes.MainPage}
+          to={AppRoute.MainPage}
           onClick={() => dispatch(changeCity(city))}
         >
           <span>{city.name}</span>
