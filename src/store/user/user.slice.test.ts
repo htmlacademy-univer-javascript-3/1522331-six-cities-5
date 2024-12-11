@@ -6,7 +6,6 @@
 import { AuthorizationStatus } from '../../dataTypes/enums/authorization-status.ts';
 import { getMockAuthInfo } from '../../mocks/mock-user.ts';
 import { expect, it } from 'vitest';
-import { currentOfferSlice } from '../current-offer/current-offer.slice.ts';
 
 describe('user slice test', () => {
   const initialState = {

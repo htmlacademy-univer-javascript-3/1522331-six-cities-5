@@ -25,6 +25,16 @@ describe('offers slice test', () => {
     expect(result).toEqual(initialState);
   });
 
+  it('should return default initial state with empty action', () => {
+    const emptyAction = { type: '' };
+
+    const result = offersSlice.reducer(undefined, emptyAction);
+
+    expect(result.city.name).toEqual(initialState.city.name);
+    expect(result.offers).toEqual([]);
+    expect(result.favoritesOffers).toEqual([]);
+  });
+
   it('should change city', () => {
     const newState = offersSlice.reducer(initialState, changeCity(AMSTERDAM));
     expect(newState.city).toEqual(AMSTERDAM);
