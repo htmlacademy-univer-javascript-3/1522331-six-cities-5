@@ -16,7 +16,7 @@ import {
   setReviewPostingStatus,
 } from './current-offer/current-offer.slice.ts';
 import { setAuthorizationStatus, setUserInfo } from './user/user-slice.ts';
-import { Bounce, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReviewStatus } from '../dataTypes/enums/review-status.ts';
 
@@ -110,30 +110,9 @@ export const postReview = createAsyncThunk<
     ) {
       toast.error(
         `Error posting review, server responded with status ${error.response.status}. please try again later.`,
-        {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-        },
       );
     } else {
-      toast.error('Error posting comment. please try again later', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      });
+      toast.error('Error posting comment. please try again later');
     }
     dispatch(setReviewPostingStatus(ReviewStatus.Error));
   }

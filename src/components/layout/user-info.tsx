@@ -43,9 +43,9 @@ function UserInfoImpl() {
           </Link>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" onClick={handleLogout}>
+          <div className="header__nav-link" onClick={handleLogout}>
             <span className="header__signout">Sign out</span>
-          </a>
+          </div>
         </li>
       </ul>
     </nav>

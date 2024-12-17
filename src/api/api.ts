@@ -33,11 +33,13 @@ export const createAPI = (): AxiosInstance => {
         (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK')
       ) {
         toast.error(
-          'Сервер недоступен, проверте подключение к интернету или повторите попытку позже',
+          'Сервер недоступен, проверьте подключение к интернету или повторите попытку позже',
           {
             toastId: 'server-unreachable',
           },
         );
+      } else {
+        throw error;
       }
     },
   );

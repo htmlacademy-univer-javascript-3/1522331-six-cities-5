@@ -6,4 +6,7 @@ type UserState = Pick<State, NameSpace.User>;
 
 export const getIsAuthorized = (state: UserState) =>
   state[NameSpace.User].authorizationStatus === AuthorizationStatus.Authorized;
+
+export const getAuthorizationStatus = (state: UserState) =>
+  state[NameSpace.User].authorizationStatus;
 export const getUserInfo = (state: UserState) => state[NameSpace.User].userInfo;
