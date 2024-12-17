@@ -4,14 +4,12 @@ import { LoginPage } from '../pages/login-page/login-page.tsx';
 import { FavoritesPage } from '../pages/favorites-page/favorites-page.tsx';
 import { OfferPage } from '../pages/offer-page/offer-page.tsx';
 import { NotFoundPage } from '../pages/not-found-page/not-found-page.tsx';
-import {
-  AuthorizationWrapperForAuthorizedOnly,
-  AuthorizationWrapperForUnauthorizedOnly,
-} from './authorization-wrapper.tsx';
 import { AppRoute } from '../dataTypes/enums/app-route.ts';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { store } from '../store/store.ts';
+import { AuthorizationWrapper } from './authorization-wrapper.tsx';
+import { AuthorizationStatus } from '../dataTypes/enums/authorization-status.ts';
 
 export function App(): React.JSX.Element {
   return (
@@ -23,21 +21,23 @@ export function App(): React.JSX.Element {
             <Route
               path={AppRoute.Login}
               element={
-                <AuthorizationWrapperForUnauthorizedOnly
+                <AuthorizationWrapper
                   fallbackUrl={AppRoute.MainPage}
+                  requiredStatus={AuthorizationStatus.Unauthorized}
                 >
                   <LoginPage />
-                </AuthorizationWrapperForUnauthorizedOnly>
+                </AuthorizationWrapper>
               }
             />
             <Route
               path={AppRoute.Favorites}
               element={
-                <AuthorizationWrapperForAuthorizedOnly
+                <AuthorizationWrapper
                   fallbackUrl={AppRoute.Login}
+                  requiredStatus={AuthorizationStatus.Authorized}
                 >
                   <FavoritesPage />
-                </AuthorizationWrapperForAuthorizedOnly>
+                </AuthorizationWrapper>
               }
             />
             <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />

@@ -25,8 +25,7 @@ export function OfferGroup({
             onClick={() =>
               dispatch(
                 changeCity(CITIES.find((city) => city.name === cityName)!),
-              )
-            }
+              )}
             to={AppRoute.MainPage}
           >
             <span>{cityName}</span>
