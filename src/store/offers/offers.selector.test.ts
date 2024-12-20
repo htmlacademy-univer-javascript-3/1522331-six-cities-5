@@ -14,7 +14,7 @@ describe('offers selectors test', () => {
       city: AMSTERDAM,
       offers: getMockOffers(3),
       sorting: (offers: Offer[]) =>
-        offers.toSorted((a, b) => a.price - b.price),
+        offers.sort((a, b) => a.price - b.price),
       favoritesOffers: getMockOffers(4),
     },
   };

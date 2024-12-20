@@ -1,22 +1,30 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../dataTypes/enums/app-route.ts';
-import { useAppSelector } from '../../store/store.ts';
+import { useAppDispatch, useAppSelector } from '../../store/store.ts';
 import { memo } from 'react';
 import { UserInfo } from './user-info.tsx';
 import { getIsAuthorized } from '../../store/user/user.selectors.ts';
+import { fetchOffers } from '../../store/async-actions.ts';
 
 interface HeaderProps {
   dontShowUserInfo: boolean;
 }
 
 function HeaderImpl({ dontShowUserInfo }: HeaderProps) {
+  const dispatch = useAppDispatch();
   const isAuthorized = useAppSelector(getIsAuthorized);
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className="header__logo-link" to={AppRoute.MainPage}>
+            <Link
+              className="header__logo-link"
+              to={AppRoute.MainPage}
+              onClick={() => {
+                dispatch(fetchOffers());
+              }}
+            >
               <img
                 className="header__logo"
                 src="img/logo.svg"
